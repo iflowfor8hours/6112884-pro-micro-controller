@@ -1,0 +1,225 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style1.css">
+<title>XT/AT/PS2/Terminal to USB Converter with NKRO - Tools</title>
+</head>
+
+<body>
+	
+<script type="text/javascript" src="headermenu.js"></script>
+<script type="text/javascript">navtabfn("Tools")</script>
+<noscript><div id=jswarn class=\"navtabs\">These docs work best with Javascript enabled!</div></noscript>
+
+<h2>Command Line Tools <a href=./history.html#v0997><span class="versioninfo">v0.997+</span></a></h2>
+<hr>
+
+<div id="contentslist">
+<ul>
+	<li><a href="#intro">Introduction</a></li>
+	<li><a href="#tools">Tools</a></li>
+	<ul>
+		<li><a href="#scas">scas</a></li>
+		<li><a href="#scdis">scdis</a></li>
+		<li><a href="#scwr">scwr</a></li>
+		<li><a href="#scrd">scrd</a></li>
+		<li><a href="#scboot">scboot</a></li>
+		<li><a href="#scinfo">scinfo</a></li>
+		<li><a href="#scaswr">scaswr</a></li>
+	</ul>
+	<li><a href="#building">Building</a></li>
+	<ul>
+		<li><a href="#windows">Windows</a></li>
+		<li><a href="#linux">Linux</a></li>
+		<li><a href="#mac">Mac OS-X</a></li>
+	</ul>
+</ul>
+</div>
+
+
+<h3 id="intro">Introduction</h3>
+<hr>
+<p>The main tools are <a href=#scas>scas</a> and <a href=#scwr>scwr</a>.</p>
+
+<p>Typically, you edit your config file(s), assemble them with <a href=#scas>scas</a>,
+then load them onto the converter with <a href=#scwr>scwr</a>.</p>
+<p>As long as it says 'device: complete' at the end, <a href=#scwr>scwr</a> has succeeded.</p>
+
+<pre><code>C:\sctools&gt; scas foo.sc foo.scb
+No errors. Wrote: foo.scb
+
+C:\sctools&gt; scwr foo.scb
+Looking for Soarer's Converter: found
+...
+device: complete
+</code></pre>
+<p>On Windows, you may find <a href=#scaswr>scaswr</a> more convenient. It simply combines the two steps.</p>
+
+
+<h3 id="tools">Tools</h3>
+<hr>
+
+<p>
+<table>
+<tr><th>Tool</th><th>Description</th></tr>
+<tr><td><a href=#scas>scas</a></td><td>Assembles one or more config text files to a config binary file</td></tr>
+<tr><td><a href=#scdis>scdis</a></td><td>Dissassembles a config binary file to a config text file</td></tr>
+<tr><td><a href=#scwr>scwr</a></td><td>Writes a config binary file to the converter</td></tr>
+<tr><td><a href=#scrd>scrd</a></td><td>Reads a config binary file from the converter</td></tr>
+<tr><td><a href=#scboot>scboot</a></td><td>Causes the converter to jump to the bootloader  <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></td></tr>
+<tr><td><a href=#scinfo>scinfo</a></td><td>Displays converter's version and memory information <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></td></tr>
+<tr><td><a href=#scaswr>scaswr</a></td><td>Combination of scas and scwr (Windows only) <a href=./history.html#v110><span class="versioninfo">v1.1+</span></a></td></tr>
+</table>
+</p>
+
+
+<h4 id="scas">scas</h4>
+<hr>
+<p>Assembles one or more config text files to a config binary file.</p>
+
+<p>Usage:</p>
+<pre><code>scas &lt;text_config&gt; [&lt;text_config&gt; ...] &lt;binary_config&gt;</code></pre>
+
+<p>Output, if everything is fine:</p>
+<pre><code>No errors. Wrote: foo.scb</code></pre>
+
+<p>Output, if there's an error:</p>
+<pre><code>error at line 4: invalid argument</code></pre>
+
+<p>Output, if there's an error in an included file in an included file:</p>
+<pre><code>error at line 4: error at line 5: error at line 5: invalid argument</code></pre>
+
+<p>To find the error, start with the last line number given, which will be an include command.<br/>
+Then look in that file for the next to last line number given, and so on.<br/>
+The first line number given is where the actual error is.</p>
+
+<p>Only the first error found is reported.</p>
+
+<p>Alternatively, check that included files assemble successfully on their own, before including into another config.</p>
+
+<h4 id="scdis">scdis</h4>
+<hr>
+<p>Dissassembles a config binary file to a config text file.</p>
+
+<p>Usage:</p>
+<pre><code>scdis &lt;binary_config&gt; [&lt;text_config&gt;]</code></pre>
+
+<p>There is no output unless an error occurs.</p>
+
+<p>This tool might be useful to validate that your config assembles as you expected (it was very useful while I was writing scas).</p>
+
+<h4 id="scwr">scwr</h4>
+<hr>
+<p>Writes a config binary file to the converter.</p>
+<p>Usage:</p>
+<pre><code>scwr &lt;binary_config&gt;
+</code></pre>
+<p>Output:</p>
+<pre><code>scwr: looking for Soarer's Converter: found
+scwr: reading file: 139 bytes: ok
+scwr: sending info request: ok
+device: ok
+protocol version check: converter=1.00, scwr=1.00: ok
+settings version check: converter=1.01, file=1.01: ok
+settings length check: max=1018, file=137 bytes: ok
+scwr: sending write request for 137 bytes: ok
+device: ok
+device: ready
+scwr: sending 60 bytes: ok
+device: ok
+device: ready
+scwr: sending 60 bytes: ok
+device: ok
+device: ready
+scwr: sending 17 bytes: ok
+device: ok
+device: complete
+</code></pre>
+
+<h4 id="scrd">scrd</h4>
+<hr>
+<p>Reads a config binary file from the converter.</p>
+<p>Usage:</p>
+<pre><code>scrd &lt;binary_config&gt;
+</code></pre>
+<p>Output:</p>
+<pre><code>scrd: looking for Soarer's Converter: found
+scrd: sending read request: ok
+device: has 137 bytes: ok
+scrd: ready
+device: sent 64 bytes: ok
+scrd: ok
+scrd: ready
+device: sent 64 bytes: ok
+scrd: ok
+scrd: ready
+device: sent 9 bytes: ok
+scrd: ok
+scrd: complete
+scrd: writing file: 139 bytes: ok
+</code></pre>
+
+<h4 id="scboot">scboot <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></h4>
+<hr>
+<p>Causes the converter to jump to the bootloader.</p>
+<p>Usage:</p>
+<pre><code>scboot
+</code></pre>
+<p>After running this command, the converter should be ready to have new firmware loaded into it.
+Note that, at this point, the converter will not be working as a keyboard any more!
+To cancel the bootloader mode, simply disconnect the converter from the computer and reconnect it.</p>
+<p>Output:</p>
+<pre><code>scboot: looking for Soarer's Converter: found
+scboot: sending boot request: ok
+device: ok
+</code></pre>
+
+<h4 id="scinfo">scinfo <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></h4>
+<hr>
+<p>Displays converter's version and memory information.</p>
+<p>Usage:</p>
+<pre><code>scinfo
+</code></pre>
+<p>Output:</p>
+<pre><code>Code Version: v1.00
+Max Settings Version: v1.01
+Current Settings Version: v1.01
+SRAM Size: 2560 bytes
+SRAM Free: 1817 bytes
+EEPROM Size: 1024 bytes
+EEPROM Free: 883 bytes
+</code></pre>
+
+<h4 id="scaswr">scaswr.bat (Windows only) <a href=./history.html#v110><span class="versioninfo">v1.1+</span></a></h4>
+<hr>
+<p>A combination of scas and scwr, designed so you can simply drag'n'drop a config file onto it (or a shortcut to it).
+	It will assemble the text config and then write the resulting binary config to the converter, in a single step.</p>
+<p>Of course, it can also be used from the command line...</p>
+<p>Usage:</p>
+<pre><code>scaswr &lt;text_config&gt;
+</code></pre>
+
+
+<h3 id="building">Building</h3>
+<hr>
+<p>Source code is provided, along with makefiles etc., to natively build on Windows, Linux and OS-X.<br/>
+Additionally, a mingw32 cross-compile can be used to build the Windows tools on Linux.</p>
+
+<p>To rebuild the tools, change directory to the sub-directory of build that's right for your OS, and type make.</p>
+	
+<h4 id="windows">Windows</h4>
+<hr>
+<p>The tools are built for Windows using MS Visual Studio 2003. Porting to later versions should be trivial.</p>
+
+<p>scwr, scrd, scboot and scinfo rely on a small library of <a href="http://www.pjrc.com/teensy/rawhid.html">RAWHID routines from PJRC</a>.<br/>
+For Windows, this library was compiled to a DLL using the <a href="http://download.microsoft.com/download/9/0/f/90f019ac-8243-48d3-91cf-81fc4093ecfd/1830_usa_ddk.iso">Microsoft DDK</a>.</p>
+
+<h4 id="linux">Linux <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></h4>
+<hr>
+<p>The tools are built for Linux using gcc etc.</p>
+
+<h4 id="mac">Mac OS-X <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></h4>
+<hr>
+<p>The tools are built for Mac OS-X on Snow Leopard using Xcode 3.2.6 and the version 10.6 SDK.</p>
+
+<hr>
+</body></html>

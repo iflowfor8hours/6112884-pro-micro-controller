@@ -1,0 +1,71 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style1.css">
+<title>XT/AT/PS2/Terminal to USB Converter with NKRO</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="headermenu.js"></script>
+<script type="text/javascript">navtabfn("Intro")</script>
+<noscript><div id=jswarn class=\"navtabs\">These docs work best with Javascript enabled!</div></noscript>
+
+<h2>Introduction</h2>
+<hr>
+<p>A Teensy-based project to adapt XT, AT, PS/2 and some 122-key terminal keyboards to USB, also known simply as "Soarer's Converter".</p>
+
+<h2>Features</h2>
+<hr>
+<p>Keyboard protocols supported:</p>
+<ul>
+	<li>PC/XT (scan code set 1)
+	<li>AT (scan code set 2)
+	<li>PS/2 (MF2) (extended scan code set 2)
+	<li>Terminal e.g. 3179/318x/319x (scan code set 3)
+</ul>
+
+<p>Configurable Features: <a href=./history.html#v0997><span class="versioninfo">v0.997+</span></a></p>
+<ul>
+	<li>Remapping
+	<li>Layers
+	<li>Macros
+	<li>On-the fly Config Selection
+</ul>
+
+<p>Other Features:</p>
+<ul>
+	<li>Full NKRO, if the keyboard supports it (even on Macs!)
+	<li>Boot mode support (even with faulty BIOS!)
+	<li>Auto-detection of the keyboard type
+	<li>XT and AT boards are remapped correctly for PrtSc etc.
+	<li>1000Hz polling using Full Speed USB
+	<li>Media and Power key support
+	<li>Jump to bootloader function (update firmware without pressing the reset button) <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a>
+	<li>Support for 'almost' PC/XT protocol keyboards, e.g. Leading Edge DC-2014 <a href=./history.html#v110><span class="versioninfo">v1.1+</span></a>
+	<li>Keyboard Reset output (required by some PC/XT keyboards) <a href=./history.html#v110><span class="versioninfo">v1.1+</span></a>
+	<li>Five auxiliary key inputs (for extra keys, buttons, or footswitches) <a href=./history.html#v110><span class="versioninfo">v1.1+</span></a>
+	<li>Support for IBM RT keyboards <a href=./history.html#v111><span class="versioninfo">v1.11+</span></a>
+</ul>
+
+
+<h2>Award!</h2>
+<hr>
+<p><a href="http://deskthority.net/deskthority-awards-2012-f34/best-input-device-mod-2012-t4632.html"><img src="images/DT_best_input_device_mod_2012.png"/></a></p>
+
+<h2>Origins</h2>
+<hr>
+<p>Way back in 2010, a Teensy landed on my doormat.</p>
+
+<p>My goal then was simply "<a href="http://geekhack.org/showthread.php?10629-What-did-you-get-in-the-mail-today&p=247450&viewfull=1#post247450">to make a USB adapter for my AT model F</a>".</p>
+
+<p>Why? I had modified the keyboard, and existing PS/2 to USB adapters didn't support the unusual codes created by the extra key positions.</p>
+
+<p>A few months later, the first release was made available on geekhack, in my <a href="http://geekhack.org/index.php?topic=17458.0">project thread</a>.</p>
+
+<p>On the release of v1.0, I also made it available <a href="http://deskthority.net/workshop-f7/xt-at-ps2-terminal-to-usb-converter-with-nkro-t2510.html">on Deskthority</a>.</p>
+
+<p>I guess I got a little carried away :-)</p>
+
+<hr>
+</body></html>
+

@@ -1,0 +1,290 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style1.css">
+<title>XT/AT/PS2/Terminal to USB Converter with NKRO - Config</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="headermenu.js"></script>
+<script type="text/javascript">navtabfn("Config")</script>
+<noscript><div id=jswarn class=\"navtabs\">These docs work best with Javascript enabled!</div></noscript>
+
+
+<h2>Config <a href=./history.html#v0997><span class="versioninfo">v0.997+</span></a></h2>
+<hr>
+
+<div id="contentslist">
+<ul>
+	<li><a href="#overview">Overview</a></li>
+	<li><a href="#initial">Initial Translation</a></li>
+	<li><a href="#commands">Command Reference</a></li>
+	<ul>
+		<li><a href="#force">force</a></li>
+		<li><a href="#include">include</a></li>
+		<li><a href="#ifselect">ifselect</a></li>
+		<li><a href="#ifset">ifset</a></li>
+		<li><a href="#ifkeyboard">ifkeyboard</a></li>
+		<li><a href="#remapblock">remapblock</a></li>
+		<li><a href="#layerblock">layerblock</a></li>
+		<li><a href="#macroblock">macroblock</a></li>
+		<ul>
+			<li><a href="#macro_commands">Macro Commands</a></li>
+			<li><a href="#triggers">Macro trigger matching</a></li>
+		</ul>
+	</ul>
+</ul>
+</div>
+
+
+<h3 id="overview">Overview</h3>
+<hr>
+
+<p>This diagram gives an simplified view of the processing stages inside the converter:<br>
+	<img src="images/dataflow.png" border="0" usemap="#map1"/>
+	<map name="map1" id="map1">
+	<area href="#initial" alt="Initial Translation" shape="rect" coords="90,82,170,119"/>
+	<area href="codes.html" alt="Codes" shape="rect" coords="186,190,221,207"/>
+	<area href="#layerblock" alt="layerblock" shape="rect" coords="240,228,277,246"/>
+	<area href="#layerblock" alt="layerblock" shape="rect" coords="241,275,319,292"/>
+	<area href="#layerblock" alt="layerblock" shape="rect" coords="336,228,364,246"/>
+	<area href="#remapblock" alt="remapblock" shape="rect" coords="255,178,304,194"/>
+	<area href="#macroblock" alt="macroblock" shape="rect" coords="429,178,480,194"/>
+	<area href="#ifselect" alt="ifselect" shape="rect" coords="421,69,488,104"/>
+	<area href="#ifselect" alt="ifselect" shape="rect" coords="489,129,552,145"/>
+	<area href="codes.html" alt="Codes" shape="rect" coords="576,190,604,206"/>
+	</map>
+</p>
+<p>The first stage is a fixed <a href="#initial">initial translation</a> into HID codes, that cannot be modified by the config.
+	The goal of this stage is to map into a reasonable base set of codes for further remapping, and to try and ensure that each
+	key on the keyboard results in a unique HID code after this stage.</p>
+<p>The second stage combines <a href="#remapblock">remapping</a> and <a href="#layerblock">layer</a> functions, since layers are simply alternate remappings.</p>
+<p>The third stage is <a href="#macroblock">macro</a> expansion.</p>
+<p>The final stage separates out the internal commands such as <a href="#ifselect">SELECTn</a> and <a href="#macro_commands">BOOT</a> etc. and routes them appropriately, and
+	also converts the <a href="codes.html">HIDX</a> codes back into standard HID codes for the keyboard, media, and power code pages.</p>
+
+
+<h3 id="initial">Initial Translation</h3>
+<hr>
+<p>For most keys it's fairly obvious which codes are produced after the fixed initial translation.
+However, for some keys on a 122-key keyboard, and the normally unused extra keys on various keyboards,
+the codes don't follow an obvious pattern.</p>
+<p>To find out which code a key is producing after the fixed initial translation,
+you can use <a href="http://www.pjrc.com/teensy/hid_listen.html">hid_listen</a>
+to examine the <a href="trouble.html#diag">Diagnostic Output</a>.
+</p>
+<p>When you press a key, a set of codes is sent by the converter to hid_listen.
+For example, pressing the centre key in the 122-key's cursor block results in:
+</p>
+<pre><code>r62 +93 d93 rE2 -93 u93
+</code></pre>
+<p>Note the code prefixed by '+', then look it up in the <a href="codes.html">HID code list</a>.
+For the example, looking up 93 reveals that the identifier to use for remapping or triggering a macro would be LANG_4.
+</p>
+
+<h3 id="commands">Command Reference</h3>
+<hr>
+
+<h4 id="force">force</h4>
+<hr>
+<p>The <code>force</code> command disables the auto-detection of keyboard type. It is only very rarely needed!</p>
+<pre><code>force {set1|set2|set3|set2ext}
+</code></pre>
+<p>Example:</p>
+<pre><code>force set2
+</code></pre>
+
+<h4 id="include">include</h4>
+<hr>
+<p>The <code>include</code> command processes another file, exactly as if it was copy-pasted to where the include command is.</p>
+<pre><code>include &lt;file_name&gt;
+</code></pre>
+<p>Quotation marks are optional unless the file name contains spaces.</p>
+<p>Example:</p>
+<pre><code>include "colemak.sc"
+</code></pre>
+
+<h4 id="ifselect">ifselect</h4>
+<hr>
+<p>
+Groups of settings can be toggled by using the <code>ifselect</code> command and defining remaps or macros that output the SELECT_0 to SELECT_7 codes.</p>
+<pre><code>ifselect {&lt;select_num&gt; | any}
+</code></pre>
+<p>
+When any of the SELECT codes are output the entire config is reloaded, and the <code>ifselect</code> commands choose which blocks will be applied.<br/>
+When the converter powers-up, all selects, except select 0, are inactive.<br/>
+Multiple selects can be active at a time.<br/>
+Select 0 is special - it is always active, and when SELECT_0 is output it resets all the other selects.
+</p>
+<p>Blocks following <code>ifselect &lt;select_num&gt;</code>, up to the next <code>ifselect</code>, are applied only if the specified select is active.</p>
+<p>Blocks following <code>ifselect any</code>, up to the next <code>ifselect</code>, are applied regardless of which selects are active.</p>
+<p>Example:</p>
+<pre><code># toggle between qwerty and colemak by pressing scroll lock
+
+ifselect 1
+include colemak.sc
+
+ifselect any
+remapblock
+    SCROLL_LOCK SELECT_1
+endblock
+</code></pre>
+
+<h4 id="ifset">ifset</h4>
+<hr>
+<p>Blocks following the <code>ifset</code> command are only applied if using one of the specified sets.</p>
+<pre><code>ifset [set1] [set2] [set3] [set2ext] [any]
+</code></pre>
+<p>Example:</p>
+<pre><code>ifset set1 set2
+</code></pre>
+
+<h4 id="ifkeyboard">ifkeyboard</h4>
+<hr>
+<p>Blocks following the <code>ifkeyboard</code> command are only applied if the keyboard has the specified ID.</br>
+<pre><code>ifkeyboard {&lt;keyboard_id&gt; | any}
+</code></pre>
+<p>The keyboard ID is given in hexadecimal.</p>
+<p>See the <a href=trouble.html#keyboardid>Troubleshooting</a> section for details of how to find out the ID of your keyboard.</p>
+<p>Example:</p>
+<pre><code>ifkeyboard BABA
+</code></pre>
+
+<h4 id="layerblock">layerblock</h4>
+<hr>
+<p>Layerblocks define combinations of function keys to access different layers.</p>
+<pre><code>layerblock
+    &lt;fn_key_combo&gt; &lt;layer_num&gt;
+    ...
+endblock
+</code></pre>
+<p>Function keys are defined by remapping keys to codes FN1 to FN8.</p>
+<p>Example:</p>
+<pre><code>layerblock
+    FN1 1
+    FN2 1
+    FN1 FN2 2
+endblock
+
+<a href=config.html#remapblock>remapblock</a>
+    LGUI FN1
+    RGUI FN2
+endblock
+</code></pre>
+
+<h4 id="remapblock">remapblock</h4>
+<hr>
+<p>Remapblocks define remappings either for the base layer, or for the specified
+layer if a <code>layer</code> command is given inside the block.</p>
+<pre><code>remapblock
+    [layer &lt;layer_num&gt;]
+    &lt;from_hid&gt; &lt;to_hid&gt;
+    ...
+endblock
+</code></pre>
+<p>Example:</p>
+<pre><code># swap capslock and backspace
+
+remapblock
+    CAPS_LOCK BACKSPACE
+    BACKSPACE CAPS_LOCK
+endblock
+</code></pre>
+
+<h4 id="macroblock">macroblock</h4>
+<hr>
+<p>Macroblocks define one or more macros. Macros are triggered by a single HID
+key with any combination of metas, and can have command blocks that execute
+on make and/or break of the HID key.</p>
+<pre><code>macroblock
+    macro &lt;hid&gt; [[-][{l|r}]shift] [[-][{l|r}]ctrl] [[-][{l|r}]alt] [[-][{l|r}]gui] ...
+    [
+        &lt;command&gt; [&lt;value&gt;]
+        ...
+    ]
+    [onbreak [norestoremeta]
+        &lt;command&gt; [&lt;value&gt;]
+        ...
+    ]
+    endmacro
+    ...
+endblock
+</code></pre>
+
+<p>Example:</p>
+<pre><code>macroblock
+  macro SCROLL_LOCK LSHIFT LCTRL -ALT
+    PUSH_META CLEAR_META all    # save and clear all metas
+    PRESS p                     # press some keys...
+    PRESS i
+    PRESS N                     # case is ignored - this results in lowercase 'n'
+    SET_META lshift             # you have to set modifiers yourself
+    PRESS g                     # results in a capital 'G', since shift is set
+    POP_ALL_META                # restore metas that were active before
+  endmacro
+endblock
+</code></pre>
+
+<h5 id="macro_commands">Macro Commands</h5>
+
+<table>
+<tr><th>Command</th><th>Description</th></tr>
+<tr><td>NOP</td><td>Does nothing</td></tr>
+<tr><td>PRESS &lt;hid&gt;</td><td>Shorthand for MAKE &lt;hid&gt; then BREAK &lt;hid&gt;</td></tr>
+<tr><td>MAKE &lt;hid&gt;</td><td>Set keystate to 'down'</td></tr>
+<tr><td>BREAK &lt;hid&gt;</td><td>Set keystate to 'up'</td></tr>
+<tr><td>ASSIGN_META &lt;metas&gt;</td><td>Set all metas to the state specified</td></tr>
+<tr><td>SET_META &lt;metas&gt;</td><td>Set specified metas to down state</td></tr>
+<tr><td>CLEAR_META &lt;metas&gt;</td><td>Set specified metas to up state</td></tr>
+<tr><td>TOGGLE_META &lt;metas&gt;</td><td>Set specified metas to inverse of current state</td></tr>
+<tr><td>POP_META</td><td>Restore metas from the time of the last PUSH_META</td></tr>
+<tr><td>POP_ALL_META</td><td>Restore metas from the time of the first PUSH_META</td></tr>
+<tr><td>DELAY &lt;delay_in_ms&gt;</td><td>Delay by the specified number of milliseconds</td></tr>
+<tr><td>CLEAR_ALL</td><td>(internal use e.g. when buffer overrun is received)</td></tr>
+<tr><td>BOOT</td><td>Cause the converter to jump to the bootloader  <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></td></tr>
+<tr><td>PUSH_META &lt;cmd&gt; &lt;value&gt;</td><td>Save metas for later. Combines with other commands</td></tr>
+</table>
+
+<h5 id="triggers">Macro trigger matching</h5>
+
+<p>
+Macros are triggered only when the state matches for all of the the specified metas.<br/>
+If a particular meta is not specified, its state is not matched.<br/>
+</p>
+
+<table>
+<tr><th>Meta</th><th>Trigger condition</th></tr>
+<tr><td>LSHIFT</td><td>LSHIFT is pressed</td></tr>
+<tr><td>RSHIFT</td><td>RSHIFT is pressed</td></tr>
+<tr><td>SHIFT</td><td>Either LSHIFT or RSHIFT is pressed</td></tr>
+<tr><td>-LSHIFT</td><td>LSHIFT is not pressed</td></tr>
+</table>
+
+<p>
+When looking for a match, macros are checked in the order they appear in the config file.<br/>
+The first matching macro found (if any) is executed, so you sometimes need to take of what order the macros are in.
+</p>
+<pre><code>macroblock
+  macro SCROLL_LOCK LSHIFT           # this macro will execute even if LCTRL is down, so...
+    ...
+  endmacro
+  macro SCROLL_LOCK LSHIFT LCTRL     # ... this macro will never execute!
+    ...
+  endmacro
+endblock
+</code></pre>
+<p>The correct order would be:</p>
+<pre><code>macroblock
+  macro SCROLL_LOCK LSHIFT LCTRL
+    ...
+  endmacro
+  macro SCROLL_LOCK LSHIFT
+    ...
+  endmacro
+endblock
+</code></pre>
+	
+<p>See the <a href="codes.html">HID code list</a> for <a href="codes.html#codes">HID</a> and <a href="codes.html#modifiers">META</a> values.</p>
+
+<hr>
+</body></html>

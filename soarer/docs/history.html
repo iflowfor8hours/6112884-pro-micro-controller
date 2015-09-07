@@ -1,0 +1,114 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style1.css">
+<title>XT/AT/PS2/Terminal to USB Converter with NKRO - History</title>
+</head>
+
+<body>
+	
+<script type="text/javascript" src="headermenu.js"></script>
+<script type="text/javascript">navtabfn("History")</script>
+<noscript><div id=jswarn class=\"navtabs\">These docs work best with Javascript enabled!</div></noscript>
+
+<h2>Release History</h2>
+<hr>
+
+<p id="v112"><b>v1.12</b><br>
+	<ul>
+		<li>Added workaround for Linux kernel v3.x bug which causes Delete key not to repeat - <a href="http://geekhack.org/index.php?topic=17458.msg927471#msg927471">details</a>.</li>
+	</ul>
+</p>
+
+<p id="v111"><b>v1.11</b><br>
+	<ul>
+		<li>Added support for IBM RT keyboard - <a href="http://deskthority.net/workshop-f7/xt-at-ps2-terminal-to-usb-converter-with-nkro-t2510-210.html#p105149">details</a>.</li>
+		<li>Added display of boot mode state by making converter lock LEDs glow dimly.</li>
+		<li>Added extra error codes to help determine where timeouts occur more precisely.</li>
+		<li>Prevented debug and rawhid output when keyboard_protocol is not set (i.e. in BIOS mode).</li>
+	</ul>
+</p>
+
+<p id="v110"><b>v1.10</b><br>
+	<ul>
+		<li>Added support for 'almost' PC/XT protocol keyboards, e.g. Leading Edge DC-2014 - <a href="http://geekhack.org/index.php?topic=17458.msg701240#msg701240">details</a>.</li>
+		<li>Added Keyboard Reset output (required by some PC/XT keyboards).</li>
+		<li>Added five auxiliary key inputs (for extra keys, buttons, or footswitches) - <a href="http://deskthority.net/workshop-f7/xt-at-ps2-terminal-to-usb-converter-with-nkro-t2510-150.html#p89391">details</a>.</li>
+		<li>Updated and expanded documentation generally, and added GH and DT Thread Contents pages and History page.</li>
+		<li>Fixed error LED timeout so it now stays on for 3 seconds after an error instead of flickering.</li>
+	</ul>
+</p>
+
+<p id="v103"><b>v1.03</b><br>
+	<ul>
+		<li>Fixed bug which caused the converter to lose config or reboot after using the scrd tool.</li>
+		<li>Fixed minor USB errors revealed by using the Command Verifier compliance testing tool.</li>
+		<li>Added debug print of final output HID codes.</li>
+	</ul>
+</p>
+
+<p id="v102"><b>v1.02</b><br>
+	<ul>
+		<li>Fixed bug which could cause the converter to lock up if a key was pressed at certain times during system boot - <a href="http://geekhack.org/index.php?topic=17458.msg609833#msg609833">details</a>.</li>
+	</ul>
+</p>
+
+<p id="v101"><b>v1.01</b><br>
+	<ul>
+		<li>Fixed bug in jump to bootloader affecting Teensy++ - <a href="http://geekhack.org/index.php?topic=17458.msg604863#msg604863">details</a>.</li>
+	</ul>
+</p>
+
+<p id="v100"><b>v1.0</b> - <a href="http://geekhack.org/index.php?topic=17458.msg579614#msg579614">details</a><br>
+	<ul>
+		<li>Added jump to bootloader function, triggered by a macro or a command line tool</li>
+		<li>Added scboot tool to jump to bootloader.</li>
+		<li>Added scinfo tool to display version and memory use.</li>
+		<li>Added tools built for Linux and Mac OS-X.</li>
+		<li>Improved reliability of the settings protocol.</li>
+		<li>Reduced memory use when not using onbreak macros and/or not using layers.</li>
+		<li>Reduced hex size, allowing use of CPUs with only 16kB of flash.</li>
+		<li>Added documentation.</a>
+	</ul>
+</p>
+
+<p id="v0997"><b>v0.997</b><br>
+	<ul>
+		<li>Added user-definable remaps, macros, layers, selects, media keys, and config tools - <a href="http://geekhack.org/index.php?topic=17458.msg527414#msg527414">details</a>.</li>
+	</ul>
+</p>
+
+<p id="v0996"><b>v0.996</b><br>
+	<ul>
+		<li>Fixed 'slow' responding keyboards.</li>
+		<li>Improved robustness when keys are being pressed before init has completed.</li>
+		<li>Added alternative layouts for terminal keyboards - <a href="http://geekhack.org/index.php?topic=17458.msg424335#msg424335">details</a>.</li>
+	</ul>
+</p>
+
+<p id="v0995"><b>v0.995</b><br>
+	<ul>
+		<li>Fixed missing 122-key mapping (top right numpad key is 'pause').</li>
+		<li>Simplified the code testing which keyboard type is attached.</li>
+	</ul>
+</p>
+
+<p id="v0994"><b>v0.994</b><br>
+	<ul>
+		<li>Added suspend support, with remote wake-up - <a href="http://geekhack.org/index.php?topic=17458.msg345109#msg345109">details</a>.</li>
+	</ul>
+</p>
+
+<p id="v0992"><b>v0.992</b><br>
+	<ul>
+		<li>Fixed minor incompatibility with Linux (backslash key not repeating etc.) - <a href="http://geekhack.org/index.php?topic=17458.msg339706#msg339706">details</a>.</li>
+	</ul>
+</p>
+
+<p id="v099"><b>v0.99</b><br>
+	<ul>
+		<li>First public release</li
+	</ul
+</p>
+
+<hr>
+</body></html>

@@ -1,0 +1,69 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style1.css">
+<title>XT/AT/PS2/Terminal to USB Converter with NKRO - QuickRef</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="headermenu.js"></script>
+<script type="text/javascript">navtabfn("QuickRef")</script>
+<noscript><div id=jswarn class=\"navtabs\">These docs work best with Javascript enabled!</div></noscript>
+
+<h2>Config Quick Reference <a href=./history.html#v0997><span class="versioninfo">v0.997+</span></a></h2>
+<hr>
+<p>Comments begin with a '#' and continue to the end of the line.</p>
+<pre><code># This is a comment.
+</code></pre>
+
+<p>The force command disables the auto-detection of keyboard type.</p>
+<pre><code><a href=config.html#force>force</a> {set1|set2|set3|set2ext}
+</code></pre>
+
+<p>The include command processes another file, exactly as if it was copy-pasted to where the include command is.</p>
+<pre><code><a href=config.html#include>include</a> &lt;file_name&gt;
+</code></pre>
+
+<p>Conditionals stay in effect until the conditional is repeated with different argument(s).<br/>
+The blocks following a conditional are only applied if...</p>
+<pre><code><a href=config.html#ifselect>ifselect</a> {&lt;select_num&gt; | any}               # specified select is active.
+<a href=config.html#ifset>ifset</a> [set1] [set2] [set3] [set2ext] [any]  # using one of the specified sets.
+<a href=config.html#ifkeyboard>ifkeyboard</a> {&lt;keyboard_id&gt; | any}            # keyboard has the specified ID.
+</code></pre>
+
+<p>Layerblocks define combinations of function keys to access different layers.<br/>
+(Function keys are defined by remapping one or more keys to pseudo-HID codes FN1 to FN8).</p>
+<pre><code><a href=config.html#layerblock>layerblock</a>
+    &lt;fn_key_combo&gt; &lt;layer_num&gt;
+    ...
+endblock
+</code></pre>
+
+<p>Remapblocks define remappings either for the base layer, or for the specified
+layer if a layer command is given inside the block.</p>
+<pre><code><a href=config.html#remapblock>remapblock</a>
+    [layer &lt;layer_num&gt;]
+    &lt;from_hid&gt; &lt;to_hid&gt;
+    ...
+endblock
+</code></pre>
+
+<p>Macroblocks define one or more macros. Macros are triggered by a single HID
+key with any combination of metas, and can have command blocks that execute
+on either or both of make and break of the HID key.</p>
+<pre><code><a href=config.html#macro>macroblock</a>
+    <a href=config.html#macro>macro</a> &lt;hid&gt; [[-][{l|r}]shift] [[-][{l|r}]ctrl] [[-][{l|r}]alt] [[-][{l|r}]gui] ...
+    [
+        &lt;command&gt; [&lt;value&gt;]
+        ...
+    ]
+    [onbreak [norestoremeta]
+        &lt;command&gt; [&lt;value&gt;]
+        ...
+    ]
+    endmacro
+    ...
+endblock
+</code></pre>
+<hr>
+</body></html>

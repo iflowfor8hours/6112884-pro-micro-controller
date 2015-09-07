@@ -1,0 +1,198 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style1.css">
+<title>XT/AT/PS2/Terminal to USB Converter with NKRO - Hardware</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="headermenu.js"></script>
+<script type="text/javascript">navtabfn("Hardware")</script>
+<noscript><div id=jswarn class=\"navtabs\">These docs work best with Javascript enabled!</div></noscript>
+
+
+<h2>Hardware</h2>
+<hr>
+
+<div id="contentslist">
+<ul>
+<li><a href="#parts">Parts List</a></li>
+<li><a href="#wiring">Wiring Info</a></li>
+<li><a href="#connectors">Connectors</a></li>
+<li><a href="#pullups">Pull-up resistors</a></li>
+<li><a href="#leds">LEDs</a></li>
+<li><a href="#aux_inputs">Auxiliary Key Inputs</li>
+<li><a href="#conn_summary">Connection Summary for Teensy</a></li>
+</ul>
+</div>
+
+<h3 id="parts">Parts List</h3>
+<hr>
+<p>Essential items:</p>
+<ul>
+<li>Teensy, or similar AVR breakout board
+<li>Connector to suit your keyboard
+<li>Some wire
+</ul>
+
+<p>Optional items, as desired:</p>
+<ul>
+<li>3x LEDs
+<li>3x Resistors for LEDs (value depends on the LEDs)
+<li>2x 1k Resistors (for pull-ups)
+<li>Box (optional, but recommended!)
+</ul>
+
+<p>You could, of course, mount the Teensy inside your keyboard and not even need a connector or a box!</p>
+
+<p>See the <a href=firmware.html>firmware</a> section for details of supported AVR processors and breakout boards.</p>
+
+
+<h3 id="wiring">Wiring Info</h3>
+<hr>
+<p><table>
+<tr><th>Connector</th><th>Breakout board</th></tr>
+<tr><td>GND</td><td>GND</td></tr>
+<tr><td>Vcc/+5V</td><td>VCC</td></tr>
+<tr><td>Data</td><td>PD0</td></tr>
+<tr><td>Clock</td><td>PD1</td></tr>
+<tr><td>Keyboard Reset <a href=./history.html#v110><span class="versioninfo">v1.1+</span></a></td><td>PB7</td></tr>
+</table></p>
+
+<p>See PJRC for <a href="http://www.pjrc.com/teensy/pinout.html">Teensy pinouts</a>, or the documentation that came with your chosen breakout board.</p>
+<p>'Keyboard Reset' is only required for certain PC/XT-like keyboards, such as the Leading Edge DC-2014.</p>
+
+
+<h3 id="connectors">Connectors</h3>
+<hr>
+<p>I wired mine to a PS/2 socket, and then use adapters to connect the others.</p>
+
+<p><a href="http://www.kbdbabel.org">kbdbabel</a> has masses of <a href="http://www.kbdbabel.org/conn/index.html">connector info</a>.
+So much, that it can be hard to find the one you want!</p>
+
+<p>So I've included the most common connectors used with this converter here.</p>
+
+<p>Note that all the connectors are shown looking into the socket.<br><br></p>
+
+<p><b>PC/XT</b> keyboards use a 5 pin, 180 degree, DIN connector. It is the same as the AT connector shown later, except
+	that pin 3 is defined as a reset signal...</p>
+<p><img src="images/IBM_PC_keyboard_connector_180.png"/><br>
+	<i>(from the IBM PC Technical Reference Manual, with correction!)</i><br><br></p>
+
+<p><b>Terminal</b> keyboards usually have a 5 pin, 270 degree, DIN connector...<br>
+	<img src="images/kbd_connector_ibm3179_318x_319x.png"/></p>
+
+<p>...or sometimes this 8P5C connector...<br>
+	<img src="images/kbd_connector_ibmterm.png"/></p>
+
+<p><b>PC</b>, <b>XT</b> and <b>AT</b> keyboards use the same 5 pin, 180 degree, DIN connector and pinout,
+while PS/2 keyboards use a 6 pin mini-DIN connector...<br>
+	<img src="images/kbd_connector_ps2.png"/></p>
+
+<p><b>RT</b> keyboards have this connector...<br>
+	<img src="images/kbd_connector_ibmrt.png"/></p>
+
+
+<h3 id="pullups">Pull-up resistors</h3>
+<hr>
+<p>In nearly all cases, these resistors are not needed.</p>
+<p>But, if the keyboard has a very long cable (3m+), I recommend adding two pull-up resistors of 1Kohm -
+one between Clock and +5V, the other between Data and +5V.
+These can really help to clean up a dirty signal
+(see <a href="http://geekhack.org/index.php?topic=14290.msg296052#msg296052">here</a>).</p>
+
+
+<h3 id="leds">LEDs</h3>
+<hr>
+<p>Optionally, lock LEDs can be wired up. Useful if your keyboard doesn't have them!<br>
+The outputs are active high (each pin puts out +5V when it wants to light the LED).<br>
+A resistor is needed inline with each LED. (The value needed depends on the type of LED,
+1Kohm is a good starting point for modern high-brightness types).</p>
+
+<p>Here's an example circuit for hooking up an LED, taken from
+	<a href="http://www.ladyada.net/learn/arduino/lesson3.html">ladyada.net</a>:<br>
+	<img src="images/LED_circuit.jpg"/><br>
+	They also have a more <a href="http://www.ladyada.net/learn/arduino/LEDs.html">in-depth tutorial</a>.</p>
+<br>
+<p>The pins used differ between CPUs.</p>
+
+<p>ATMEGA32U4 (Teensy 2.0) and ATMEGA16U4:</p>
+<table>
+<tr><th>LED</th><th>CPU Pin</th></tr>
+<tr><td>CapsLock</td><td>PF5</td></tr>
+<tr><td>NumLock</td><td>PF6</td></tr>
+<tr><td>ScrollLock</td><td>PF7</td></tr>
+</table>
+
+<p>AT90USB1286 (Teensy++ 2.0) and AT90USB646:</p>
+<table>
+<tr><th>LED</th><th>CPU Pin</th></tr>
+<tr><td>CapsLock</td><td>PD3</td></tr>
+<tr><td>NumLock</td><td>PD4</td></tr>
+<tr><td>ScrollLock</td><td>PD5</td></tr>
+</table>
+
+
+<h3 id="aux_inputs">Auxiliary Key Inputs <a href=./history.html#v110><span class="versioninfo">v1.1+</span></a></h3>
+<hr>
+
+<p>Five inputs are provided for auxiliary keys, buttons, or footswitches, which generate codes that can be remapped in your config:</p>
+<table>
+<tr><th>Auxiliary Key</th><th>Code</th><th>CPU Pin</th></tr>
+<tr><td>1</td><td>AUX1</td><td>PB0</td></tr>
+<tr><td>2</td><td>AUX2</td><td>PB1</td></tr>
+<tr><td>3</td><td>AUX3</td><td>PB2</td></tr>
+<tr><td>4</td><td>AUX4</td><td>PB3</td></tr>
+<tr><td>5</td><td>AUX5</td><td>PB4</td></tr>
+</table>
+
+<p>Inputs cause key presses when grounded, so you can simply connect the switch between the pin and ground:</p>
+<p><img src="images/aux_switch.png"></p>
+
+<p>Inputs have the internal pull-up enabled, so an external resistor won't be required in most cases. But
+	it might be necessary to use one, for example with footswitches where the wires are long. Here's how
+	you would wire one up:<p>
+<p><img src="images/aux_switch_with_pullup.png"></p>
+
+
+<h3 id="conn_summary">Connection Summary for Teensy</h3>
+<hr>
+
+<p>The GND and Vcc pins at the end of the Teensy can be used instead of the marked GND and Vcc, if you prefer.
+	Or you might choose to wire the connector to one GND and the LEDs using the other.</p>
+	
+<p>Of course, not all connections are required! The minimum and still fairly typical setup would be to connect 
+	just Ground, +5V, Data and Clock to the connector (or keyboard).</p>
+
+<h4>Teensy 2.0</h4>
+<p><img src="images/connections_teensy2.png" border="0" usemap="#map1"></p>
+<map name="map1" id="map1">
+	<area href="#wiring" alt="Wiring" shape="rect" coords="120,17,189,37"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="483,17,523,37"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="48,153,189,172"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="145,180,189,199"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="136,207,189,226"/>
+	<area href="#aux_inputs" alt="Auxiliary Inputs" shape="rect" coords="98,45,189,150"/>
+	<area href="#aux_inputs" alt="Auxiliary Inputs" shape="rect" coords="483,262,577,283"/>
+	<area href="#leds" alt="LEDs" shape="rect" coords="483,126,624,200"/>
+	<area href="history.html#v110" alt="v1.10" shape="rect" coords="49,92,86,104"/>
+	<area href="history.html#v110" alt="v1.10" shape="rect" coords="2,156,40,169"/>
+	<area href="history.html#v110" alt="v1.10" shape="rect" coords="585,266,623,278"/>
+</map>
+
+<h4>Teensy++ 2.0</h4>
+<p><img src="images/connections_teensy++2.png" border="0" usemap="#map2"></p>
+<map name="map2" id="map2">
+	<area href="#wiring" alt="Wiring" shape="rect" coords="125,12,192,31"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="473,14,508,32"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="51,36,192,56"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="149,58,192,77"/>
+	<area href="#wiring" alt="Wiring" shape="rect" coords="141,80,192,99"/>
+	<area href="#aux_inputs" alt="Auxiliary Inputs" shape="rect" coords="473,82,565,192"/>
+	<area href="#leds" alt="LEDs" shape="rect" coords="58,125,197,191"/>
+	<area href="history.html#v110" alt="v1.10" shape="rect" coords="1,40,39,53"/>
+	<area href="history.html#v110" alt="v1.10" shape="rect" coords="581,128,620,139"/>
+</map>
+
+<hr>
+</body></html>

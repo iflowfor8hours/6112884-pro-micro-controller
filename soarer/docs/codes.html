@@ -1,0 +1,333 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style1.css">
+<title>XT/AT/PS2/Terminal to USB Converter with NKRO - Codes</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="headermenu.js"></script>
+<script type="text/javascript">navtabfn("Codes")</script>
+<noscript><div id=jswarn class=\"navtabs\">These docs work best with Javascript enabled!</div></noscript>
+
+<h2>Codes</h2>
+<hr>
+
+<div id="contentslist">
+<ul>
+<li><a href="#codes">Modified HID Code Set</a></li>
+<li><a href="#deprecated">Deprecated Code Names</a></li>
+<li><a href="#modifiers">Modifiers</a></li>
+</ul>
+</div>
+
+<h3 id="codes">Modified HID Code Set</h3>
+<hr>
+<p>
+Mainly HID page 7, with additions to support internal features, media keys, and power keys.<br/>
+Codes in <i>italics</i> are used internally by the converter, and are not output.<br/>
+Codes with <span class="caution">highlight</span> are output, but may not be supported by all OS (notably Windows).<br/>
+Media and Power codes are translated to the correct code page before being output.<br/>
+</p>
+
+<table>
+<tr><th>Name</th><th>HID Code</th><th>Description</th></tr>
+<tr><td>UNASSIGNED</td><td>0x00</td><td>No Event</td></tr>
+<tr><td>OVERRUN_ERROR</td><td>0x01</td><td>Overrun Error</td></tr>
+<tr><td>POST_FAIL</td><td>0x02</td><td>POST Fail</td></tr>
+<tr><td>ERROR_UNDEFINED</td><td>0x03</td><td>ErrorUndefined</td></tr>
+<tr><td>A</td><td>0x04</td><td>a A</td></tr>
+<tr><td>B</td><td>0x05</td><td>b B</td></tr>
+<tr><td>C</td><td>0x06</td><td>c C</td></tr>
+<tr><td>D</td><td>0x07</td><td>d D</td></tr>
+<tr><td>E</td><td>0x08</td><td>e E</td></tr>
+<tr><td>F</td><td>0x09</td><td>f F</td></tr>
+<tr><td>G</td><td>0x0A</td><td>g G</td></tr>
+<tr><td>H</td><td>0x0B</td><td>h H</td></tr>
+<tr><td>I</td><td>0x0C</td><td>i I</td></tr>
+<tr><td>J</td><td>0x0D</td><td>j J</td></tr>
+<tr><td>K</td><td>0x0E</td><td>k K</td></tr>
+<tr><td>L</td><td>0x0F</td><td>l L</td></tr>
+<tr><td>M</td><td>0x10</td><td>m M</td></tr>
+<tr><td>N</td><td>0x11</td><td>n N</td></tr>
+<tr><td>O</td><td>0x12</td><td>o O</td></tr>
+<tr><td>P</td><td>0x13</td><td>p P</td></tr>
+<tr><td>Q</td><td>0x14</td><td>q Q</td></tr>
+<tr><td>R</td><td>0x15</td><td>r R</td></tr>
+<tr><td>S</td><td>0x16</td><td>s S</td></tr>
+<tr><td>T</td><td>0x17</td><td>t T</td></tr>
+<tr><td>U</td><td>0x18</td><td>u U</td></tr>
+<tr><td>V</td><td>0x19</td><td>v V</td></tr>
+<tr><td>W</td><td>0x1A</td><td>w W</td></tr>
+<tr><td>X</td><td>0x1B</td><td>x X</td></tr>
+<tr><td>Y</td><td>0x1C</td><td>y Y</td></tr>
+<tr><td>Z</td><td>0x1D</td><td>z Z</td></tr>
+<tr><td>1</td><td>0x1E</td><td>1 !</td></tr>
+<tr><td>2</td><td>0x1F</td><td>2 @</td></tr>
+<tr><td>3</td><td>0x20</td><td>3 #</td></tr>
+<tr><td>4</td><td>0x21</td><td>4 $</td></tr>
+<tr><td>5</td><td>0x22</td><td>5 %</td></tr>
+<tr><td>6</td><td>0x23</td><td>6 ^</td></tr>
+<tr><td>7</td><td>0x24</td><td>7 &</td></tr>
+<tr><td>8</td><td>0x25</td><td>8 *</td></tr>
+<tr><td>9</td><td>0x26</td><td>9 (</td></tr>
+<tr><td>0</td><td>0x27</td><td>0 )</td></tr>
+<tr><td>ENTER</td><td>0x28</td><td>Return</td></tr>
+<tr><td>ESC</td><td>0x29</td><td>Escape</td></tr>
+<tr><td>BACKSPACE</td><td>0x2A</td><td>Backspace</td></tr>
+<tr><td>TAB</td><td>0x2B</td><td>Tab</td></tr>
+<tr><td>SPACE</td><td>0x2C</td><td>Space</td></tr>
+<tr><td>MINUS</td><td>0x2D</td><td>- _</td></tr>
+<tr><td>EQUAL</td><td>0x2E</td><td>= +</td></tr>
+<tr><td>LEFT_BRACE</td><td>0x2F</td><td>[ {</td></tr>
+<tr><td>RIGHT_BRACE</td><td>0x30</td><td>] }</td></tr>
+<tr><td>BACKSLASH</td><td>0x31</td><td>\ |  </td></tr>
+<tr><td><i>EUROPE_1</i></td><td><i>0x32</i></td><td><i>Europe 1 (use BACKSLASH instead)</i></td></tr>
+<tr><td>SEMICOLON</td><td>0x33</td><td>; :</td></tr>
+<tr><td>QUOTE</td><td>0x34</td><td>' "</td></tr>
+<tr><td>BACK_QUOTE</td><td>0x35</td><td>` ~</td></tr>
+<tr><td>COMMA</td><td>0x36</td><td>, &lt;</td></tr>
+<tr><td>PERIOD</td><td>0x37</td><td>. &gt;</td></tr>
+<tr><td>SLASH</td><td>0x38</td><td>/ ?</td></tr>
+<tr><td>CAPS_LOCK</td><td>0x39</td><td>Caps Lock</td></tr>
+<tr><td>F1</td><td>0x3A</td><td>F1</td></tr>
+<tr><td>F2</td><td>0x3B</td><td>F2</td></tr>
+<tr><td>F3</td><td>0x3C</td><td>F3</td></tr>
+<tr><td>F4</td><td>0x3D</td><td>F4</td></tr>
+<tr><td>F5</td><td>0x3E</td><td>F5</td></tr>
+<tr><td>F6</td><td>0x3F</td><td>F6</td></tr>
+<tr><td>F7</td><td>0x40</td><td>F7</td></tr>
+<tr><td>F8</td><td>0x41</td><td>F8</td></tr>
+<tr><td>F9</td><td>0x42</td><td>F9</td></tr>
+<tr><td>F10</td><td>0x43</td><td>F10</td></tr>
+<tr><td>F11</td><td>0x44</td><td>F11</td></tr>
+<tr><td>F12</td><td>0x45</td><td>F12</td></tr>
+<tr><td>PRINTSCREEN</td><td>0x46</td><td>Print Screen</td></tr>
+<tr><td>SCROLL_LOCK</td><td>0x47</td><td>Scroll Lock</td></tr>
+<tr><td>PAUSE</td><td>0x48</td><td>Pause</td></tr>
+<tr><td>INSERT</td><td>0x49</td><td>Insert</td></tr>
+<tr><td>HOME</td><td>0x4A</td><td>Home</td></tr>
+<tr><td>PAGE_UP</td><td>0x4B</td><td>Page Up</td></tr>
+<tr><td>DELETE</td><td>0x4C</td><td>Delete</td></tr>
+<tr><td>END</td><td>0x4D</td><td>End</td></tr>
+<tr><td>PAGE_DOWN</td><td>0x4E</td><td>Page Down</td></tr>
+<tr><td>RIGHT</td><td>0x4F</td><td>Right Arrow</td></tr>
+<tr><td>LEFT</td><td>0x50</td><td>Left Arrow</td></tr>
+<tr><td>DOWN</td><td>0x51</td><td>Down Arrow</td></tr>
+<tr><td>UP</td><td>0x52</td><td>Up Arrow</td></tr>
+<tr><td>NUM_LOCK</td><td>0x53</td><td>Num Lock</td></tr>
+<tr><td>PAD_SLASH</td><td>0x54</td><td>Keypad /</td></tr>
+<tr><td>PAD_ASTERIX</td><td>0x55</td><td>Keypad *</td></tr>
+<tr><td>PAD_MINUS</td><td>0x56</td><td>Keypad -</td></tr>
+<tr><td>PAD_PLUS</td><td>0x57</td><td>Keypad +</td></tr>
+<tr><td>PAD_ENTER</td><td>0x58</td><td>Keypad Enter</td></tr>
+<tr><td>PAD_1</td><td>0x59</td><td>Keypad 1 End</td></tr>
+<tr><td>PAD_2</td><td>0x5A</td><td>Keypad 2 Down</td></tr>
+<tr><td>PAD_3</td><td>0x5B</td><td>Keypad 3 PageDn</td></tr>
+<tr><td>PAD_4</td><td>0x5C</td><td>Keypad 4 Left</td></tr>
+<tr><td>PAD_5</td><td>0x5D</td><td>Keypad 5</td></tr>
+<tr><td>PAD_6</td><td>0x5E</td><td>Keypad 6 Right</td></tr>
+<tr><td>PAD_7</td><td>0x5F</td><td>Keypad 7 Home</td></tr>
+<tr><td>PAD_8</td><td>0x60</td><td>Keypad 8 Up</td></tr>
+<tr><td>PAD_9</td><td>0x61</td><td>Keypad 9 PageUp</td></tr>
+<tr><td>PAD_0</td><td>0x62</td><td>Keypad 0 Insert</td></tr>
+<tr><td>PAD_PERIOD</td><td>0x63</td><td>Keypad . Delete</td></tr>
+<tr><td>EUROPE_2</td><td>0x64</td><td>Europe 2</td></tr>
+<tr><td>APP</td><td>0x65</td><td>App (Windows Menu)</td></tr>
+<tr><td>POWER</td><td>0x66</td><td>Keyboard Power</td></tr>
+<tr class="caution"><td>PAD_EQUALS</td><td>0x67</td><td>Keypad =</td></tr>
+<tr><td>F13</td><td>0x68</td><td>F13</td></tr>
+<tr><td>F14</td><td>0x69</td><td>F14</td></tr>
+<tr><td>F15</td><td>0x6A</td><td>F15</td></tr>
+<tr><td>F16</td><td>0x6B</td><td>F16</td></tr>
+<tr><td>F17</td><td>0x6C</td><td>F17</td></tr>
+<tr><td>F18</td><td>0x6D</td><td>F18</td></tr>
+<tr><td>F19</td><td>0x6E</td><td>F19</td></tr>
+<tr><td>F20</td><td>0x6F</td><td>F20</td></tr>
+<tr><td>F21</td><td>0x70</td><td>F21</td></tr>
+<tr><td>F22</td><td>0x71</td><td>F22</td></tr>
+<tr><td>F23</td><td>0x72</td><td>F23</td></tr>
+<tr><td>F24</td><td>0x73</td><td>F24</td></tr>
+<tr class="caution"><td>EXECUTE</td><td>0x74</td><td>Keyboard Execute</td></tr>
+<tr class="caution"><td>HELP</td><td>0x75</td><td>Keyboard Help</td></tr>
+<tr class="caution"><td>MENU</td><td>0x76</td><td>Keyboard Menu</td></tr>
+<tr class="caution"><td>SELECT</td><td>0x77</td><td>Keyboard Select</td></tr>
+<tr class="caution"><td>STOP</td><td>0x78</td><td>Keyboard Stop</td></tr>
+<tr class="caution"><td>AGAIN</td><td>0x79</td><td>Keyboard Again</td></tr>
+<tr class="caution"><td>UNDO</td><td>0x7A</td><td>Keyboard Undo</td></tr>
+<tr class="caution"><td>CUT</td><td>0x7B</td><td>Keyboard Cut</td></tr>
+<tr class="caution"><td>COPY</td><td>0x7C</td><td>Keyboard Copy</td></tr>
+<tr class="caution"><td>PASTE</td><td>0x7D</td><td>Keyboard Paste</td></tr>
+<tr class="caution"><td>FIND</td><td>0x7E</td><td>Keyboard Find</td></tr>
+<tr class="caution"><td>MUTE</td><td>0x7F</td><td>Keyboard Mute</td></tr>
+<tr class="caution"><td>VOLUME_UP</td><td>0x80</td><td>Keyboard Volume Up</td></tr>
+<tr class="caution"><td>VOLUME_DOWN</td><td>0x81</td><td>Keyboard Volume Dn</td></tr>
+<tr class="caution"><td>LOCKING_CAPS_LOCK</td><td>0x82</td><td>Keyboard Locking Caps Lock</td></tr>
+<tr class="caution"><td>LOCKING_NUM_LOCK</td><td>0x83</td><td>Keyboard Locking Num Lock</td></tr>
+<tr class="caution"><td>LOCKING_SCROLL_LOCK</td><td>0x84</td><td>Keyboard Locking Scroll Lock</td></tr>
+<tr><td>PAD_COMMA</td><td>0x85</td><td>Keypad comma (Brazilian Keypad .)</td></tr>
+<tr><td>EQUAL_SIGN</td><td>0x86</td><td>Keyboard Equal Sign</td></tr>
+<tr><td>INTERNATIONAL_1</td><td>0x87</td><td>Keyboard Int'l 1 (Ro)</td></tr>
+<tr><td>INTERNATIONAL_2</td><td>0x88</td><td>Keyboard Intl'2 (Katakana/Hiragana)</td></tr>
+<tr><td>INTERNATIONAL_3</td><td>0x89</td><td>Keyboard Int'l 2 (Yen)</td></tr>
+<tr><td>INTERNATIONAL_4</td><td>0x8A</td><td>Keyboard Int'l 4 (Henkan)</td></tr>
+<tr><td>INTERNATIONAL_5</td><td>0x8B</td><td>Keyboard Int'l 5 (Muhenkan)</td></tr>
+<tr><td>INTERNATIONAL_6</td><td>0x8C</td><td>Keyboard Int'l 6 (PC9800 Keypad comma)</td></tr>
+<tr><td>INTERNATIONAL_7</td><td>0x8D</td><td>Keyboard Int'l 7</td></tr>
+<tr><td>INTERNATIONAL_8</td><td>0x8E</td><td>Keyboard Int'l 8</td></tr>
+<tr><td>INTERNATIONAL_9</td><td>0x8F</td><td>Keyboard Int'l 9</td></tr>
+<tr><td>LANG_1</td><td>0x90</td><td>Keyboard Lang 1 (Hanguel/English)</td></tr>
+<tr><td>LANG_2</td><td>0x91</td><td>Keyboard Lang 2 (Hanja)</td></tr>
+<tr><td>LANG_3</td><td>0x92</td><td>Keyboard Lang 3 (Katakana)</td></tr>
+<tr><td>LANG_4</td><td>0x93</td><td>Keyboard Lang 4 (Hiragana)</td></tr>
+<tr><td>LANG_5</td><td>0x94</td><td>Keyboard Lang 5 (Zenkaku/Hankaku)</td></tr>
+<tr><td>LANG_6</td><td>0x95</td><td>Keyboard Lang 6</td></tr>
+<tr><td>LANG_7</td><td>0x96</td><td>Keyboard Lang 7</td></tr>
+<tr><td>LANG_8</td><td>0x97</td><td>Keyboard Lang 8</td></tr>
+<tr><td>LANG_9</td><td>0x98</td><td>Keyboard Lang 9</td></tr>
+<tr class="caution"><td>ALTERNATE_ERASE</td><td>0x99</td><td>Keyboard Alternate Erase</td></tr>
+<tr class="caution"><td>SYSREQ_ATTN</td><td>0x9A</td><td>Keyboard SysReq/Attention</td></tr>
+<tr class="caution"><td>CANCEL</td><td>0x9B</td><td>Keyboard Cancel</td></tr>
+<tr class="caution"><td><i>CLEAR</i></td><td><i>0x9C</i></td><td><i>Keyboard Clear (use DELETE instead)</i></td></tr>
+<tr class="caution"><td>PRIOR</td><td>0x9D</td><td>Keyboard Prior</td></tr>
+<tr class="caution"><td>RETURN</td><td>0x9E</td><td>Keyboard Return</td></tr>
+<tr class="caution"><td>SEPARATOR</td><td>0x9F</td><td>Keyboard Separator</td></tr>
+<tr class="caution"><td>OUT</td><td>0xA0</td><td>Keyboard Out</td></tr>
+<tr class="caution"><td>OPER</td><td>0xA1</td><td>Keyboard Oper</td></tr>
+<tr class="caution"><td>CLEAR_AGAIN</td><td>0xA2</td><td>Keyboard Clear/Again</td></tr>
+<tr class="caution"><td>CRSEL_PROPS</td><td>0xA3</td><td>Keyboard CrSel/Props</td></tr>
+<tr class="caution"><td>EXSEL</td><td>0xA4</td><td>Keyboard ExSel</td></tr>
+<tr><td>SYSTEM_POWER</td><td>0xA8</td><td>System Power</td></tr>
+<tr><td>SYSTEM_SLEEP</td><td>0xA9</td><td>System Sleep</td></tr>
+<tr><td>SYSTEM_WAKE</td><td>0xAA</td><td>System Wake</td></tr>
+<tr><td><i>AUX1</i></td><td><i>0xAB</i></td><td><i>Auxiliary key 1</i></td></tr>
+<tr><td><i>AUX2</i></td><td><i>0xAC</i></td><td><i>Auxiliary key 2</i></td></tr>
+<tr><td><i>AUX3</i></td><td><i>0xAD</i></td><td><i>Auxiliary key 3</i></td></tr>
+<tr><td><i>AUX4</i></td><td><i>0xAE</i></td><td><i>Auxiliary key 4</i></td></tr>
+<tr><td><i>AUX5</i></td><td><i>0xAF</i></td><td><i>Auxiliary key 5</i></td></tr>
+<tr><td><i>EXTRA_LALT</i></td><td><i>0xB1</i></td><td><i>AT-F extra pad lhs of space</i></td></tr>
+<tr><td><i>EXTRA_PAD_PLUS</i></td><td><i>0xB2</i></td><td><i>Term extra pad bottom of keypad +</i></td></tr>
+<tr><td><i>EXTRA_RALT</i></td><td><i>0xB3</i></td><td><i>AT-F extra pad rhs of space</i></td></tr>
+<tr><td><i>EXTRA_EUROPE_2</i></td><td><i>0xB4</i></td><td><i>AT-F extra pad lhs of enter</i></td></tr>
+<tr><td><i>EXTRA_BACKSLASH</i></td><td><i>0xB5</i></td><td><i>AT-F extra pad top of enter</i></td></tr>
+<tr><td><i>EXTRA_INSERT</i></td><td><i>0xB6</i></td><td><i>AT-F extra pad lhs of Insert</i></td></tr>
+<tr><td><i>EXTRA_F1</i></td><td><i>0xB7</i></td><td><i>122-key Terminal lhs F1</i></td></tr>
+<tr><td><i>EXTRA_F2</i></td><td><i>0xB8</i></td><td><i>122-key Terminal lhs F2</i></td></tr>
+<tr><td><i>EXTRA_F3</i></td><td><i>0xB9</i></td><td><i>122-key Terminal lhs F3</i></td></tr>
+<tr><td><i>EXTRA_F4</i></td><td><i>0xBA</i></td><td><i>122-key Terminal lhs F4</i></td></tr>
+<tr><td><i>EXTRA_F5</i></td><td><i>0xBB</i></td><td><i>122-key Terminal lhs F5</i></td></tr>
+<tr><td><i>EXTRA_F6</i></td><td><i>0xBC</i></td><td><i>122-key Terminal lhs F6</i></td></tr>
+<tr><td><i>EXTRA_F7</i></td><td><i>0xBD</i></td><td><i>122-key Terminal lhs F7</i></td></tr>
+<tr><td><i>EXTRA_F8</i></td><td><i>0xBE</i></td><td><i>122-key Terminal lhs F8</i></td></tr>
+<tr><td><i>EXTRA_F9</i></td><td><i>0xBF</i></td><td><i>122-key Terminal lhs F9</i></td></tr>
+<tr><td><i>EXTRA_F10</i></td><td><i>0xC0</i></td><td><i>122-key Terminal lhs F10</i></td></tr>
+<tr><td><i>EXTRA_SYSRQ</i></td><td><i>0xC2</i></td><td><i>Sys Req (AT 84-key)</i></td></tr>
+<tr><td><i>FN1</i></td><td><i>0xD0</i></td><td><i>Function layer key 1</i></td></tr>
+<tr><td><i>FN2</i></td><td><i>0xD1</i></td><td><i>Function layer key 2</i></td></tr>
+<tr><td><i>FN3</i></td><td><i>0xD2</i></td><td><i>Function layer key 3</i></td></tr>
+<tr><td><i>FN4</i></td><td><i>0xD3</i></td><td><i>Function layer key 4</i></td></tr>
+<tr><td><i>FN5</i></td><td><i>0xD4</i></td><td><i>Function layer key 5</i></td></tr>
+<tr><td><i>FN6</i></td><td><i>0xD5</i></td><td><i>Function layer key 6</i></td></tr>
+<tr><td><i>FN7</i></td><td><i>0xD6</i></td><td><i>Function layer key 7</i></td></tr>
+<tr><td><i>FN8</i></td><td><i>0xD7</i></td><td><i>Function layer key 8</i></td></tr>
+<tr><td><i>SELECT_0</i></td><td><i>0xD8</i></td><td><i>Select reset</i></td></tr>
+<tr><td><i>SELECT_1</i></td><td><i>0xD9</i></td><td><i>Select 1 toggle</i></td></tr>
+<tr><td><i>SELECT_2</i></td><td><i>0xDA</i></td><td><i>Select 2 toggle</i></td></tr>
+<tr><td><i>SELECT_3</i></td><td><i>0xDB</i></td><td><i>Select 3 toggle</i></td></tr>
+<tr><td><i>SELECT_4</i></td><td><i>0xDC</i></td><td><i>Select 4 toggle</i></td></tr>
+<tr><td><i>SELECT_5</i></td><td><i>0xDD</i></td><td><i>Select 5 toggle</i></td></tr>
+<tr><td><i>SELECT_6</i></td><td><i>0xDE</i></td><td><i>Select 6 toggle</i></td></tr>
+<tr><td><i>SELECT_7</i></td><td><i>0xDF</i></td><td><i>Select 7 toggle</i></td></tr>
+<tr><td>LCTRL</td><td>0xE0</td><td>Left Control</td></tr>
+<tr><td>LSHIFT</td><td>0xE1</td><td>Left Shift</td></tr>
+<tr><td>LALT</td><td>0xE2</td><td>Left Alt</td></tr>
+<tr><td>LGUI</td><td>0xE3</td><td>Left GUI (Left Windows)</td></tr>
+<tr><td>RCTRL</td><td>0xE4</td><td>Right Control</td></tr>
+<tr><td>RSHIFT</td><td>0xE5</td><td>Right Shift</td></tr>
+<tr><td>RALT</td><td>0xE6</td><td>Right Alt</td></tr>
+<tr><td>RGUI</td><td>0xE7</td><td>Right GUI (Right Windows)</td></tr>
+<tr><td>MEDIA_NEXT_TRACK</td><td>0xE8</td><td>Scan Next Track</td></tr>
+<tr><td>MEDIA_PREV_TRACK</td><td>0xE9</td><td>Scan Previous Track</td></tr>
+<tr><td>MEDIA_STOP</td><td>0xEA</td><td>Stop</td></tr>
+<tr><td>MEDIA_PLAY_PAUSE</td><td>0xEB</td><td>Play/ Pause</td></tr>
+<tr><td>MEDIA_MUTE</td><td>0xEC</td><td>Mute</td></tr>
+<tr><td>MEDIA_BASS_BOOST</td><td>0xED</td><td>Bass Boost</td></tr>
+<tr><td>MEDIA_LOUDNESS</td><td>0xEE</td><td>Loudness</td></tr>
+<tr><td>MEDIA_VOLUME_UP</td><td>0xEF</td><td>Volume Up</td></tr>
+<tr><td>MEDIA_VOLUME_DOWN</td><td>0xF0</td><td>Volume Down</td></tr>
+<tr><td>MEDIA_BASS_UP</td><td>0xF1</td><td>Bass Up</td></tr>
+<tr><td>MEDIA_BASS_DOWN</td><td>0xF2</td><td>Bass Down</td></tr>
+<tr><td>MEDIA_TREBLE_UP</td><td>0xF3</td><td>Treble Up</td></tr>
+<tr><td>MEDIA_TREBLE_DOWN</td><td>0xF4</td><td>Treble Down</td></tr>
+<tr><td>MEDIA_MEDIA_SELECT</td><td>0xF5</td><td>Media Select</td></tr>
+<tr><td>MEDIA_MAIL</td><td>0xF6</td><td>Mail</td></tr>
+<tr><td>MEDIA_CALCULATOR</td><td>0xF7</td><td>Calculator</td></tr>
+<tr><td>MEDIA_MY_COMPUTER</td><td>0xF8</td><td>My Computer</td></tr>
+<tr><td>MEDIA_WWW_SEARCH</td><td>0xF9</td><td>WWW Search</td></tr>
+<tr><td>MEDIA_WWW_HOME</td><td>0xFA</td><td>WWW Home</td></tr>
+<tr><td>MEDIA_WWW_BACK</td><td>0xFB</td><td>WWW Back</td></tr>
+<tr><td>MEDIA_WWW_FORWARD</td><td>0xFC</td><td>WWW Forward</td></tr>
+<tr><td>MEDIA_WWW_STOP</td><td>0xFD</td><td>WWW Stop</td></tr>
+<tr><td>MEDIA_WWW_REFRESH</td><td>0xFE</td><td>WWW Refresh</td></tr>
+<tr><td>MEDIA_WWW_FAVORITES</td><td>0xFF</td><td>WWW Favorites</td></tr>
+</table>
+
+<p class="breakhere" />
+	
+<h3 id="deprecated">Deprecated Code Names <a href=./history.html#v100><span class="versioninfo">v1.0+</span></a></h3>
+<hr>
+<p>
+The following code names are deprecated, and should no longer be used.<br/>
+They are included for compatibility with older config files written for v0.997.<br/>
+Replacements for these names have been added beginning 'EXTRA_'.<br/>
+(As in, the change is just in the names of these codes).<br/>
+</p>
+
+<table>
+<tr><th>Name</th><th>HID Code</th><th>Description</th></tr>
+<tr><td><i>FAKE_01</i></td><td><i>0xB0</i></td><td><i>extra</i></td></tr>
+<tr><td><i>FAKE_02</i></td><td><i>0xB1</i></td><td><i>AT-F extra pad lhs of space</i></td></tr>
+<tr><td><i>FAKE_03</i></td><td><i>0xB2</i></td><td><i>Term extra pad bottom of keypad +</i></td></tr>
+<tr><td><i>FAKE_04</i></td><td><i>0xB3</i></td><td><i>AT-F extra pad rhs of space</i></td></tr>
+<tr><td><i>FAKE_05</i></td><td><i>0xB4</i></td><td><i>AT-F extra pad lhs of enter</i></td></tr>
+<tr><td><i>FAKE_06</i></td><td><i>0xB5</i></td><td><i>AT-F extra pad top of enter</i></td></tr>
+<tr><td><i>FAKE_07</i></td><td><i>0xB6</i></td><td><i>AT-F extra pad lhs of Insert</i></td></tr>
+<tr><td><i>FAKE_08</i></td><td><i>0xB7</i></td><td><i>Term F1</i></td></tr>
+<tr><td><i>FAKE_09</i></td><td><i>0xB8</i></td><td><i>Term F2</i></td></tr>
+<tr><td><i>FAKE_10</i></td><td><i>0xB9</i></td><td><i>Term F3</i></td></tr>
+<tr><td><i>FAKE_11</i></td><td><i>0xBA</i></td><td><i>Term F4</i></td></tr>
+<tr><td><i>FAKE_12</i></td><td><i>0xBB</i></td><td><i>Term F5</i></td></tr>
+<tr><td><i>FAKE_13</i></td><td><i>0xBC</i></td><td><i>Term F6</i></td></tr>
+<tr><td><i>FAKE_14</i></td><td><i>0xBD</i></td><td><i>Term F7</i></td></tr>
+<tr><td><i>FAKE_15</i></td><td><i>0xBE</i></td><td><i>Term F8</i></td></tr>
+<tr><td><i>FAKE_16</i></td><td><i>0xBF</i></td><td><i>Term F9</i></td></tr>
+<tr><td><i>FAKE_17</i></td><td><i>0xC0</i></td><td><i>Term F10</i></td></tr>
+<tr><td><i>FAKE_18</i></td><td><i>0xC1</i></td><td><i>extra</i></td></tr>
+<tr><td><i>FAKE_19</i></td><td><i>0xC2</i></td><td><i>Sys Req (AT 84-key)</i></td></tr>
+</table>
+
+<h3 id="modifiers">Modifiers</h3>
+<hr>
+<p>
+For most uses, either a single key or a combination can be specified.<br/>
+Depending on context, a combination might mean 'any' or 'all' of the specified modifiers.<br/>
+</p>
+
+<table>
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>LCTRL</td><td>Left Control</td></tr>
+<tr><td>LSHIFT</td><td>Left Shift</td></tr>
+<tr><td>LALT</td><td>Left Alt</td></tr>
+<tr><td>LGUI</td><td>Left GUI (Left Windows)</td></tr>
+<tr><td>RCTRL</td><td>Right Control</td></tr>
+<tr><td>RSHIFT</td><td>Right Shift</td></tr>
+<tr><td>RALT</td><td>Right Alt</td></tr>
+<tr><td>RGUI</td><td>Right GUI (Right Windows)</td></tr>
+<tr><td>CTRL</td><td>Either/Both Control (shorthand for LCTRL RCTRL)</td></tr>
+<tr><td>SHIFT</td><td>Either/Both Shift (shorthand for LSHIFT RSHIFT)</td></tr>
+<tr><td>ALT</td><td>Either/Both Alt (shorthand for LALT RALT)</td></tr>
+<tr><td>GUI</td><td>Either/Both GUI (shorthand for LGUI RGUI)</td></tr>
+<tr><td>ALL</td><td>Any/All (shorthand for CTRL SHIFT ALT GUI)</td></tr>
+</table>
+<hr>
+</body></html>
