@@ -19,7 +19,7 @@ The board has a ton of buttons, a nice feel, and an obsolete connector, making i
 
 To get up and running on linux, you'll need a few dependencies. Namely the avr-gcc toolchain, and some other stuff. 
 
-`sudo apt-get install apt-get flex byacc bison gcc libusb libusb-dev libc6-dev avrdude libusb-0.1-4:i386` 
+`sudo apt-get install flex byacc bison gcc libusb-1.0-0-dev libusb-dev libc6-dev avrdude libusb-0.1-4:i386`
 
 There are probably a bunch of usb-related libraries that I missed there as well. Things will balk when they need them. I have been programming different microcontrollers on the same machine for a while so I don't know what else is really required on a clean machine at this point. The killer one is that i386 libusb library, it's needed to put the pro micro into bootstrap mode. 
 
