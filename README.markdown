@@ -1,3 +1,6 @@
+-This repo is a fork from iflowfor8hours' repo - consider all the content and excellent work his. I've added a few lines that pertain to MacOSX and added a couple images in docs that helped me.
+
+
 This project is contains the code necessary to use a pro micro (pictured below) instead of (or) a teensy as the microcontroller for [Soarer's controller](http://deskthority.net/workshop-f7/xt-at-ps2-terminal-to-usb-converter-with-nkro-t2510.html), to replace the controller in an IBM 6112884 Japanese layout keyboard for use today via USB.
 
 ## Motivation
@@ -17,11 +20,16 @@ The board has a ton of buttons, a nice feel, and an obsolete connector, making i
 
 ## Installation
 
-To get up and running on linux, you'll need a few dependencies. Namely the avr-gcc toolchain, and some other stuff. 
+To get up and running on Mac, you'll need some stuff. I recommend starting by installing Homebrew, which if you don't have it, is rad as hell. As always, `brew update` before you begin.
 
-`sudo apt-get install flex byacc bison gcc libusb-1.0-0-dev libusb-dev libc6-dev avrdude libusb-0.1-4:i386`
+You'll also need:
 
-There are probably a bunch of usb-related libraries that I missed there as well. Things will balk when they need them. I have been programming different microcontrollers on the same machine for a while so I don't know what else is really required on a clean machine at this point. The killer one is that i386 libusb library, it's needed to put the pro micro into bootstrap mode. 
+- Python 
+- Pip
+- Python serial (install with pip)
+- libusb (brew install libUSB, or brew search it and find the version that works for you)
+- AVRDude (Install with Brew)
+
 
 ## Configuration
 
@@ -29,20 +37,7 @@ There are probably a bunch of usb-related libraries that I missed there as well.
 I had a couple of micro usb cables laying around that straight up worked for android phones, charging things, other keyboards, etc that would not work for programming my pro micro. Believe it. It happens.
 
 ## Running the configuration tools
-
-Plug your pro micro in, then run `lsusb`. You might need to sudo that. if it is attached, you should see something like
-
-    Bus 003 Device 091: ID 2341:8036 Arduino SA Leonardo (CDC ACM, HID)
-
-In your output. That means we can see it. I've read elsewhere that you might need to add a udev rule to prevent it from getting picked up by ubuntu as a device. I didn't but here's how to do that just in case. 
-
-    sudo echo 'ATTRS{idVendor}=="1b4f", ENV{ID_MM_DEVICE_IGNORE}="1"' > /etc/udev/rules.d/77-arduino.rules
-
-We need to load soarer's controller onto the device to get anything useful to happen concerning keyboards. To do that, the pro micro needs to be in bootstrap mode. The included `reset.py` script will do that for you, provided you know what serial port it is on. To find out, unplug your device and run
-
-    sudo ls /dev/tty*
-
-Then plug the device in, and run it again. Find the difference. Mine was set to `/dev/ttyACM0` but that may be different for you depending on what other devices you have plugged in.
+Run `/dev/tty*` and see what USB devices you've got on the system. Then, connect your Pro Micro and run it again. You should see a new device, and thusly get the system name for the device. Usually it starts with the prefix `UsbModem-`. You can also get device info by going to `finder/about this mac/system hardware/usb`. If you have any issues detecting it, try another USB port. USB 3.0 can cause issues, so try USB 2.0.
 
 Once you have the serial port name, run `./reset.py /dev/ttyACM0` replacing the device name with whatever was correct from the previous command. 
 Note that this requires pyserial to work, you can install it using virtualenv and the directions below if you have it, or `sudo pip install pyserial` if you're not into the pragmatisim thing. Might as well do it the right way. To do it with virtualenv run the following:
@@ -54,9 +49,9 @@ Note that this requires pyserial to work, you can install it using virtualenv an
 That `reset.py` script should drop your pro micro into bootstrap mode. Now we need to flash it with Soarer's controller software before we can start messing with the layouts and doing useful stuff.
 The following command will install the firmware for the pro micro I bought and linked to. Should work on any atmega32u4 (arduino leonardo clone) based device. 
 
-    avrdude -p atmega32u4 -P /dev/ttyACM0  -c avr109  -U flash:w:./soarer/firmware/Soarer_Controller_v1.20_beta4_atmega32u4.hex
+    avrdude -p atmega32u4 -P /dev/ttyACM0  -b 1200 -c avr109  -U flash:w:./soarer/firmware/Soarer_Controller_v1.20_beta4_atmega32u4.hex
 
-You should see some output with various reports of OK. Unplug and replug the device in, and run `lsusb` again. Now you should see the following output, with likely different bus and device IDs.
+You should see some output with various reports of OK. Unplug and replug the device in, and got to `finder/about this mac/system hardware/usb`. You should see a different device name, for example:
 
     Bus 003 Device 095: ID 16c0:047d Van Ooijen Technische Informatica Teensy Keyboard+Debug
 
@@ -85,6 +80,8 @@ When you unplug and replug the device, your keyboard is ready for debugging the 
 When I finally got to this phase. I used `xev` extensively to test the keys and ensure the mapping was to my liking. I found this super handy sed command on reddit for filtering the output to get less stuff. Give it a shot if you like. `xev` produces a ton of output otherwise.
 
     xev | sed -n 's/^.*keycode *\([0-9]\+\).* * \([a-z,A-Z,0-9,_-]\+\)).*$/keycode \1 = \2 /p'
+
+On MacOSX, [https://www.pjrc.com/teensy/hid_listen.html](HID_listen), as recommended by Soarer, is a big help. Make sure to `chmod 755` before you run it, and you may have to `sudo` the executable.
 
 On mine, I had a whole row of keys that didn't work, so I aligned the columns in `6112884_files/micro_6112884AllKeysAssigned.sc` to get a better visual on what was supposed to be happening on each pin of the controller. The line below refers to what cluster of keys are connected to each pin of the pro micro. It was really helpful to line everything up so I could visually see everything while I was testing.
 
