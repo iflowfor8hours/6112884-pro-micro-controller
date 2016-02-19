@@ -65,6 +65,8 @@ Make whatever changes you like in `6112884_files/micro_6112884AllKeysAssigned.sc
   
     ./soarer/tools/scas 6112884_files/micro_6112884AllKeysAssigned.sc 6112884_files/micro_6112884AllKeysAssigned.scb
 
+Make sure to use the 1.20 beta tools included in this repo. For Mac, using 1.0 will give you errors with the `matrix` command in the `.sc` file(s).
+
 Run the `scinfo` command to get the state of your device. [This tutorial](http://deskthority.net/workshop-f7/teensy-2-0-alternatives-atmega32u4-t4253-90.html) has some pretty  good troubleshooting info if things don't appear to work.
 
 Now write the compiled binary onto the device using the `scwr` command.
@@ -85,7 +87,7 @@ When I finally got to this phase. I used `xev` extensively to test the keys and 
 
     xev | sed -n 's/^.*keycode *\([0-9]\+\).* * \([a-z,A-Z,0-9,_-]\+\)).*$/keycode \1 = \2 /p'
 
-On MacOSX, [https://www.pjrc.com/teensy/hid_listen.html](HID_listen), as recommended by Soarer, is a big help. Make sure to `chmod 755` before you run it, and you may have to `sudo` the executable.
+On MacOSX, [HID_listen](https://www.pjrc.com/teensy/hid_listen.html), as recommended by Soarer, is a big help. Make sure to `chmod 755` before you run it, and you may have to `sudo` the executable. I've included it in /HID/, and you can read more about it in /soarer/docs. It'll tell you most everything you need to know about what keypresses are happening.
 
 On mine, I had a whole row of keys that didn't work, so I aligned the columns in `6112884_files/micro_6112884AllKeysAssigned.sc` to get a better visual on what was supposed to be happening on each pin of the controller. The line below refers to what cluster of keys are connected to each pin of the pro micro. It was really helpful to line everything up so I could visually see everything while I was testing.
 
