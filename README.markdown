@@ -8,7 +8,7 @@ This project is contains the code necessary to use a pro micro (pictured below) 
 The Pro Micro controller is [way cheaper](http://www.alibaba.com/showroom/pro-micro-atmega32u4.html) and easier to get in some cases than the ever diminishing supply of teensy 2.0 controller. 
 It is a clone of the Arduino Leonardo with an ATmega32U4 processor.
 
-![pro micro image with teensy pinout](docs/promicro.png)
+![pro micro image with teensy pinout](docs/board-pin-diagrams/promicro.png)
 
 The 6112884 was available on ebay super cheap in a big lot a while ago, and also can be bought from [a retailer](http://meci.com/nib-ibm-japanese-lettering-typing-computer-102-keyboard-letter-type-6112884.html) in the US for $24.94. That is incredibly cheap for a full mechanical keyboard with [Alps SKCC switches](http://deskthority.net/wiki/Alps_SKCC_series). This is essentially an IBM Model M for under $30.
 
@@ -16,7 +16,7 @@ The board has a ton of buttons, a nice feel, and an obsolete connector, making i
 
 ![japanese layout model m](docs/6112884.jpg)
 
-**Don't use this board at work, it is LOUD, and your coworkers will kill you, or if you work in London, like I do, make them want to kill you but not tell you that..**
+**Use this board at work. Trust me, it's a good idea.**
 
 ## Installation
 
@@ -73,7 +73,11 @@ Now write the compiled binary onto the device using the `scwr` command.
 
 When you unplug and replug the device, your keyboard is ready for debugging the layout for you and typing on hopefully. Note the first line of the `.sc` file corresponds to the pins on your pro micro. They reference the pin names of the teensy though, because that is what Soarer uses. You have to change them to reflect your pro micro which may be different from mine depending on which one you have. The image below has been unbelieveably helpful in figuring out what needs to go where. 
 
-![Teensy to Pro micro pinout](docs/Teensy2-as-ISP_Pro-Micro.jpg)
+![Teensy to Pro micro pinout](docs/board-pin-diagrams/Teensy2-as-ISP_Pro-Micro.jpg)
+
+Here's Soarer's notation of the original CPU on the 6112884, showing the board names that are associated with the pins. Thanks, Soarer! Appreciate ya.
+
+![pro micro image with teensy pinout](docs/board-pin-diagrams/6112884_cpu_swap_pinout.png)
 
 ## Troubleshooting
 
