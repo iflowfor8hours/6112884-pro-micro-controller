@@ -5,14 +5,14 @@ This project is contains the code necessary to use a pro micro (pictured below) 
 
 ## Motivation
 
-The Pro Micro controller is [way cheaper](http://www.alibaba.com/showroom/pro-micro-atmega32u4.html) and easier to get in some cases than the ever diminishing supply of teensy 2.0 controller. 
+The Pro Micro controller is [way cheaper](http://www.alibaba.com/showroom/pro-micro-atmega32u4.html) and easier to get in some cases than the ever diminishing supply of teensy 2.0 controller.
 It is a clone of the Arduino Leonardo with an ATmega32U4 processor.
 
 ![pro micro image with teensy pinout](docs/board-pin-diagrams/promicro.png)
 
 The 6112884 was available on ebay super cheap in a big lot a while ago, and also can be bought from [a retailer](http://meci.com/nib-ibm-japanese-lettering-typing-computer-102-keyboard-letter-type-6112884.html) in the US for $24.94. That is incredibly cheap for a full mechanical keyboard with [Alps SKCC switches](http://deskthority.net/wiki/Alps_SKCC_series). This is essentially an IBM Model M for under $30.
 
-The board has a ton of buttons, a nice feel, and an obsolete connector, making it essentially useless without some hacking. 
+The board has a ton of buttons, a nice feel, and an obsolete connector, making it essentially useless without some hacking.
 
 ![japanese layout model m](docs/6112884.jpg)
 
@@ -20,11 +20,11 @@ The board has a ton of buttons, a nice feel, and an obsolete connector, making i
 
 ## Installation
 
-To get up and running on Mac, you'll need some stuff. I recommend starting by installing Homebrew, which if you don't have it, is rad as hell. As always, `brew update` before you begin.
+To get up and running on Mac, you'll need some stuff. I recommend starting by installing Homebrew, which if you don't have it, is rad as hell. As always, `brew update` before you begin. I'd also recommend installing [Crosspack for AVR](https://www.obdev.at/products/crosspack/index.html), which is a development environment for AVR microcontrollers, and at the very least it will make sure you've got the right USB drivers.
 
 You'll also need:
 
-- Python 
+- Python
 - Pip
 - Python serial (install with pip)
 - libusb (brew install libUSB, or brew search it and find the version that works for you)
@@ -39,7 +39,7 @@ I had a couple of micro usb cables laying around that straight up worked for and
 ## Running the configuration tools
 Run `/dev/tty*` and see what USB devices you've got on the system. Then, connect your Pro Micro and run it again. You should see a new device, and thusly get the system name for the device. Usually it starts with the prefix `UsbModem-`. You can also get device info by going to `finder/about this mac/system hardware/usb`. If you have any issues detecting it, try another USB port. USB 3.0 can cause issues, so try USB 2.0.
 
-Once you have the serial port name, run `./reset.py /dev/ttyACM0` replacing the device name with whatever was correct from the previous command. 
+Once you have the serial port name, run `./reset.py /dev/ttyACM0` replacing the device name with whatever was correct from the previous command.
 Note that this requires pyserial to work, you can install it using virtualenv and the directions below if you have it, or `sudo pip install pyserial` if you're not into the pragmatisim thing. Might as well do it the right way. To do it with virtualenv run the following:
 
     virtualenv .venv
@@ -47,7 +47,7 @@ Note that this requires pyserial to work, you can install it using virtualenv an
     pip install -r requirements.txt
 
 That `reset.py` script should drop your pro micro into bootstrap mode. Now we need to flash it with Soarer's controller software before we can start messing with the layouts and doing useful stuff.
-The following command will install the firmware for the pro micro I bought and linked to. Should work on any atmega32u4 (arduino leonardo clone) based device. 
+The following command will install the firmware for the pro micro I bought and linked to. Should work on any atmega32u4 (arduino leonardo clone) based device.
 
     avrdude -p atmega32u4 -P /dev/ttyACM0  -b 1200 -c avr109  -U flash:w:./soarer/firmware/Soarer_Controller_v1.20_beta4_atmega32u4.hex
 
@@ -59,10 +59,10 @@ If you do, you're well on your way.
 
 ## Assembling and customizing your layout
 
-If you're using the 6112884 Keyboard, then you can just tweak the included config in the `6112884_files/micro_6112884AllKeysAssigned.sc` file. To customize it or make changes to the layout, you need to use Soarer's toolchain to boot, assemble, load and then use it. 
+If you're using the 6112884 Keyboard, then you can just tweak the included config in the `6112884_files/micro_6112884AllKeysAssigned.sc` file. To customize it or make changes to the layout, you need to use Soarer's toolchain to boot, assemble, load and then use it.
 
 Make whatever changes you like in `6112884_files/micro_6112884AllKeysAssigned.sc` then assemble it into a binary.
-  
+
     ./soarer/tools/scas 6112884_files/micro_6112884AllKeysAssigned.sc 6112884_files/micro_6112884AllKeysAssigned.scb
 
 Make sure to use the 1.20 beta tools included in this repo. For Mac, using 1.0 will give you errors with the `matrix` command in the `.sc` file(s).
@@ -73,7 +73,7 @@ Now write the compiled binary onto the device using the `scwr` command.
 
     ./soarer/tools/scwr 6112884_files/micro_6112884AllKeysAssigned.scb
 
-When you unplug and replug the device, your keyboard is ready for debugging the layout for you and typing on hopefully. Note the first line of the `.sc` file corresponds to the pins on your pro micro. They reference the pin names of the teensy though, because that is what Soarer uses. You have to change them to reflect your pro micro which may be different from mine depending on which one you have. The image below has been unbelieveably helpful in figuring out what needs to go where. 
+When you unplug and replug the device, your keyboard is ready for debugging the layout for you and typing on hopefully. Note the first line of the `.sc` file corresponds to the pins on your pro micro. They reference the pin names of the teensy though, because that is what Soarer uses. You have to change them to reflect your pro micro which may be different from mine depending on which one you have. The image below has been unbelieveably helpful in figuring out what needs to go where.
 
 ![Teensy to Pro micro pinout](docs/board-pin-diagrams/Teensy2-as-ISP_Pro-Micro.jpg)
 
@@ -93,8 +93,8 @@ On mine, I had a whole row of keys that didn't work, so I aligned the columns in
 
 	sense		      PD1			    PD0			    PD4				PC6			    PD7			    PE6				  PB4			    PB5
 	# 0
-	muxstrobe 0		esc     		TAB			    Z			  	S			      W			      2			    	UNASSIGNED	UNASSIGNED	
-	muxstrobe 1		1			      Q			      X			  	D			      E		      	3			    	UNASSIGNED	UNASSIGNED	
+	muxstrobe 0		esc     		TAB			    Z			  	S			      W			      2			    	UNASSIGNED	UNASSIGNED
+	muxstrobe 1		1			      Q			      X			  	D			      E		      	3			    	UNASSIGNED	UNASSIGNED
 
 There is documentation for all of the soarer tools in the `soarer/docs` directory, however since they don't do much more than what they say they do, I didn't look at them much.
 
@@ -102,11 +102,11 @@ There is documentation for all of the soarer tools in the `soarer/docs` director
 
 * None of this would have been possible without Soarer and all the contribution he has made, and [this post](https://geekhack.org/index.php?topic=50437.msg1193047#msg1193047) in particular.
 * I used a really useful trick to get the pro micro into bootstrap mode that I found in [this repository](https://github.com/nicholaskell/Arduino_Loader). Props the that guy.
-* [This article](http://deskthority.net/workshop-f7/how-to-use-a-pro-micro-as-a-cheap-controller-converter-like-soarer-s-t8448.html) about doing basically the same thing was helpful for all the people troubleshooting stuff in it. 
+* [This article](http://deskthority.net/workshop-f7/how-to-use-a-pro-micro-as-a-cheap-controller-converter-like-soarer-s-t8448.html) about doing basically the same thing was helpful for all the people troubleshooting stuff in it.
 * The reddit [/r/MechanicalKeyboards](https://www.reddit.com/r/MechanicalKeyboards/comments/39pwlo/guidelinux_debug_your_kb_with_command_line_tools/) had that handy sed line for filtering `xev` output.
-* As with all keyboard projects, thanks geekhack and deskauthority communities. 
+* As with all keyboard projects, thanks geekhack and deskauthority communities.
 
 ## License
 
 I have no idea. All of the binaries and stuff under the `soarer` directory are from [Soarer's Convertor](http://deskthority.net/workshop-f7/xt-at-ps2-terminal-to-usb-converter-with-nkro-t2510.html), which I don't know how he licenses. The source code for them is included in a zip file in the tools directory.
-The configuration files and documentation are my contribution here and fall under MIT license. 
+The configuration files and documentation are my contribution here and fall under MIT license.
