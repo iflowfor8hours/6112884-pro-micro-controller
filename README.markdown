@@ -88,19 +88,19 @@ Make sure you double-check the pins you've soldered to on the Pro Micro! If you'
 
 IBM CHIP PIN / PRO MICRO INPUT
 
-Sense 0 / PD1
-Sense 1 / PD0
-Sense 2 / PD4
-Sense 3 / PC6
-Sense 4 / PD7
-Sense 5 / PE6
-Sense 6 / PB4
-Sense 7 / PB5
+* Sense 0 / PD1
+* Sense 1 / PD0
+* Sense 2 / PD4
+* Sense 3 / PC6
+* Sense 4 / PD7
+* Sense 5 / PE6
+* Sense 6 / PB4
+* Sense 7 / PB5
 
-Strobe Mux 3 / A0
-Strobe Mux 2 / A1
-Strobe Mux 1 / A2
-Strobe Mux 0 / A3
+* Strobe Mux 3 / A0
+* Strobe Mux 2 / A1
+* Strobe Mux 1 / A2
+* Strobe Mux 0 / A3
 
 
 ## Troubleshooting
