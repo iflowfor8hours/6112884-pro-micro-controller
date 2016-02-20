@@ -81,15 +81,37 @@ Here's Soarer's notation of the original CPU on the 6112884, showing the board n
 
 ![pro micro image with teensy pinout](docs/board-pin-diagrams/6112884_cpu_swap_pinout.png)
 
+## Important notes about corresponding pins
+
+Make sure you double-check the pins you've soldered to on the Pro Micro! If you're using iflowfor8hours' layout config for the 6112884 (which is in
+6112884_files/micro_6112884AllKeysAssigned.sc), you'll see he's labelled Sense 0-7. So has Soarer on the chart above, but the pins correspond to the pins on a teensy, and because I'm an idiot I found that confusing. I've created a list of the corresponding pins from the chip on the IBM board below, and you can cross-reference it with Soarer's image of the chip above with the green labels. Ground and VCC are clearly labelled on the chips, and remember that the u-shaped cut-out in the chip faces left if you're looking at the keyboard from the front on.
+
+IBM CHIP PIN / PRO MICRO INPUT
+
+Sense 0 / PD1
+Sense 1 / PD0
+Sense 2 / PD4
+Sense 3 / PC6
+Sense 4 / PD7
+Sense 5 / PE6
+Sense 6 / PB4
+Sense 7 / PB5
+
+Strobe Mux 3 / A0
+Strobe Mux 2 / A1
+Strobe Mux 1 / A2
+Strobe Mux 0 / A3
+
+
 ## Troubleshooting
 
-When I finally got to this phase. I used `xev` extensively to test the keys and ensure the mapping was to my liking. I found this super handy sed command on reddit for filtering the output to get less stuff. Give it a shot if you like. `xev` produces a ton of output otherwise.
+When I finally got to this phase, I used `xev` extensively to test the keys and ensure the mapping was to my liking. I found this super handy sed command on reddit for filtering the output to get less stuff. Give it a shot if you like. `xev` produces a ton of output otherwise.
 
     xev | sed -n 's/^.*keycode *\([0-9]\+\).* * \([a-z,A-Z,0-9,_-]\+\)).*$/keycode \1 = \2 /p'
 
-On MacOSX, [HID_listen](https://www.pjrc.com/teensy/hid_listen.html), as recommended by Soarer, is a big help. Make sure to `chmod 755` before you run it, and you may have to `sudo` the executable. I've included it in /HID/, and you can read more about it in /soarer/docs. It'll tell you most everything you need to know about what keypresses are happening.
+On MacOSX (I haven't used XEV on Mac, but you could probably get it), [HID_listen](https://www.pjrc.com/teensy/hid_listen.html), as recommended by Soarer, is a big help. Make sure to `chmod 755` before you run it, and you may have to `sudo` the executable. I've included it in /HID/, and you can read more about it in /soarer/docs. It'll tell you most everything you need to know about what keypresses are happening and what data is being recieved, or if keypresses are being detected at all.
 
-On mine, I had a whole row of keys that didn't work, so I aligned the columns in `6112884_files/micro_6112884AllKeysAssigned.sc` to get a better visual on what was supposed to be happening on each pin of the controller. The line below refers to what cluster of keys are connected to each pin of the pro micro. It was really helpful to line everything up so I could visually see everything while I was testing.
+On mine, I had a whole row of keys that didn't work, so I aligned the columns in `6112884_files/micro_6112884AllKeysAssigned.sc` to get a better visual on what was supposed to be happening on each pin of the controller. A whole line not working is a sign that a specific pin isn't mapped or soldered correctly. The line below refers to what cluster of keys are connected to each pin of the pro micro. It was really helpful to line everything up so I could visually see everything while I was testing.
 
 	sense		      PD1			    PD0			    PD4				PC6			    PD7			    PE6				  PB4			    PB5
 	# 0
