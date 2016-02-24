@@ -21,7 +21,19 @@ To get up and running on linux, you'll need a few dependencies. Namely the avr-g
 
 `sudo apt-get install flex byacc bison gcc libusb-1.0-0-dev libusb-dev libc6-dev avrdude libusb-0.1-4:i386`
 
-There are probably a bunch of usb-related libraries that I missed there as well. Things will balk when they need them. I have been programming different microcontrollers on the same machine for a while so I don't know what else is really required on a clean machine at this point. The killer one is that i386 libusb library, it's needed to put the pro micro into bootstrap mode. 
+There are probably a bunch of usb-related libraries that I missed there as well. Things will balk when they need them. I have been programming different microcontrollers on the same machine for a while so I don't know what else is really required on a clean machine at this point. The killer one is that i386 libusb library, it's needed to put the pro micro into bootstrap mode.
+
+## Installation on MacOSX
+
+To get up and running on Mac, you'll need some stuff. I recommend starting by installing Homebrew, which if you don't have it, is the rad-as-hell apt-get type analog for Mac. As always, `brew update` before you begin. I'd also recommend installing [Crosspack for AVR](https://www.obdev.at/products/crosspack/index.html), which is a development environment for AVR microcontrollers, and at the very least it will make sure you've got the right USB drivers.
+
+You'll also need:
+
+- Python (install from the public site with a PKG)
+- Pip 
+- Python serial (install with pip)
+- libusb (brew install libUSB, or brew search it and find the version that works for you)
+- AVRDude (Install with Brew)
 
 ## Configuration
 
@@ -80,6 +92,31 @@ When you unplug and replug the device, your keyboard is ready for debugging the 
 
 ![Teensy to Pro micro pinout](docs/Teensy2-as-ISP_Pro-Micro.jpg)
 
+## Important notes about corresponding pins
+
+Here's Soarer's notation of the original CPU on the 6112884, showing the board names that are associated with the pins. Thanks, Soarer! Appreciate ya.
+
+![pro micro image with teensy pinout](docs/6112884_cpu_swap_pinout.png)
+
+Make sure you double-check the pins you've soldered to on the Pro Micro! If you're using iflowfor8hours' layout config for the 6112884 (which is in
+6112884_files/micro_6112884AllKeysAssigned.sc), you'll see he's labelled Sense 0-7. So has Soarer on the chart above, but the pins correspond to the pins on a teensy, and because I'm an idiot I found that confusing. I've created a list of the corresponding pins from the chip on the IBM board below, and you can cross-reference it with Soarer's image of the chip above with the green labels. Ground and VCC are clearly labelled on the chips, and remember that the u-shaped cut-out in the chip faces left if you're looking at the keyboard from the front on.
+
+IBM CHIP PIN / PRO MICRO INPUT
+
+* Sense 0 / PD1
+* Sense 1 / PD0
+* Sense 2 / PD4
+* Sense 3 / PC6
+* Sense 4 / PD7
+* Sense 5 / PE6
+* Sense 6 / PB4
+* Sense 7 / PB5
+
+* Strobe Mux 3 / A0
+* Strobe Mux 2 / A1
+* Strobe Mux 1 / A2
+* Strobe Mux 0 / A3
+
 ## Troubleshooting
 
 When I finally got to this phase. I used `xev` extensively to test the keys and ensure the mapping was to my liking. I found this super handy sed command on reddit for filtering the output to get less stuff. Give it a shot if you like. `xev` produces a ton of output otherwise.
@@ -94,6 +131,12 @@ On mine, I had a whole row of keys that didn't work, so I aligned the columns in
 	muxstrobe 1		1			      Q			      X			  	D			      E		      	3			    	UNASSIGNED	UNASSIGNED	
 
 There is documentation for all of the soarer tools in the `soarer/docs` directory, however since they don't do much more than what they say they do, I didn't look at them much.
+
+##MacOSX Troubleshooting
+
+If you recompile the .SC file using Soarer's tools SCAS, make sure to use the 1.2 beta version in the zip in this repo, (and obviously the Mac one). For me, the 1.1 tools didn't work great on Mac El Capitan.
+
+On MacOSX (I haven't used XEV on Mac, but you could probably get it), [HID_listen](https://www.pjrc.com/teensy/hid_listen.html), as recommended by Soarer on the forums, is a big help. Make sure to `chmod 755` before you run it, and you may have to `sudo` the executable. I've included it in /HID/, and you can read more about it in /soarer/docs. It'll tell you most everything you need to know about what keypresses are happening and what data is being recieved, or if keypresses are being detected at all.
 
 ## Contributors
 
